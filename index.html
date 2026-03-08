@@ -106,16 +106,23 @@ canvas{display:block;touch-action:none;}
 // ── Supabase leaderboard ───────────────────────────────
 const SUPA_URL='https://lyvuwdsllthsbqsgcopa.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5dnV3ZHNsbHRoc2Jxc2djb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjI0NTAsImV4cCI6MjA4ODQ5ODQ1MH0.BxRD1t3Ovnbohy-HGQ03WkhEuduvvmLTD9PTVwUrfAY';
-const supa=supabase.createClient(SUPA_URL,SUPA_KEY);
+let supa=null;
+try{ supa=supabase.createClient(SUPA_URL,SUPA_KEY); }catch(e){ console.warn('Supabase unavailable',e); }
 
 async function fetchLeaderboard(){
+try{
+if(!supa)return [];
 const {data,error}=await supa.from(‘leaderboard’).select(‘name,score,run’).order(‘score’,{ascending:false}).limit(10);
 if(error)return [];
 return data||[];
+}catch(e){return [];}
 }
 
-async function submitScore(name,score,run){
-await supa.from(‘leaderboard’).insert([{name:name.toUpperCase().slice(0,5),score,run}]);
+async function submitScore(playerName,playerScore,playerRun){
+try{
+if(!supa)return;
+await supa.from(‘leaderboard’).insert([{name:playerName.toUpperCase().slice(0,5),score:playerScore,run:playerRun}]);
+}catch(e){console.warn(‘Score submit failed’,e);}
 }
 
 function buildLeaderboardHTML(rows){
@@ -959,6 +966,10 @@ function drawMountaintop(){
 // ── Main draw ──────────────────────────────────────────
 function draw(){
   ctx.clearRect(0,0,CW,CH);
+  // Always draw a background so canvas is never blank
+  const sky=ctx.createLinearGradient(0,0,0,CH);
+  sky.addColorStop(0,'#3a7fbe');sky.addColorStop(1,'#9ad0f0');
+  ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH);
   if(state==='skiing'){drawSlope();drawLifts();drawSkiWorld();drawPlayer();}
   else if(state==='bottom'||state==='boarding'){drawBottom();}
   else if(state==='lift_up'){drawLiftUpScene();}
@@ -1017,7 +1028,7 @@ function showNameEntry(isWin){
     const name=boxes.map(b=>b.value).join('').trim()||'?????';
     document.getElementById('submitScoreBtn').textContent='Saving…';
     document.getElementById('submitScoreBtn').disabled=true;
-    await submitScore(name,score,run);
+    await submitScore(name, score, run);
     const rows=await fetchLeaderboard();
     document.getElementById('lbDisplay').innerHTML=buildLeaderboardHTML(rows);
     document.getElementById('submitScoreBtn').style.display='none';
@@ -1054,6 +1065,7 @@ function setModeBar(txt,bg){
 // ── Start ──────────────────────────────────────────────
 function startGame(){
   document.getElementById('overlay').style.display='none';
+  resize(); // ensure canvas is correctly sized
   state='skiing';score=0;lives=3;run=1;
   document.getElementById('shootBtn').style.display='none';
   document.getElementById('jumpBtn').style.display='flex';
