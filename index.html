@@ -10,67 +10,63 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#1a1a2e;touch-action:none;}
 #gameWrap{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;}
-canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%;touch-action:none;}
+canvas{display:block;position:absolute;top:0;left:0;touch-action:none;}
 #hud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:10px 12px;pointer-events:none;z-index:10;}
 .hud-pill{background:rgba(20,20,40,0.88);border:3px solid rgba(255,255,255,0.18);border-radius:14px;padding:6px 14px;font-family:'Fredoka One',sans-serif;font-size:17px;color:#fff;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,0.4);}
 .hud-pill .val{color:#f5c211;}
 #modeBar{position:absolute;top:58px;left:50%;transform:translateX(-50%);background:#1e90d4;border:3px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 16px;font-family:'Fredoka One',sans-serif;font-size:12px;color:#fff;letter-spacing:1px;pointer-events:none;z-index:10;white-space:nowrap;}
-/* Minimap */
-#minimap{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:26px;pointer-events:none;z-index:10;display:flex;flex-direction:column;align-items:center;gap:2px;}
-#mmTrack{width:14px;background:rgba(0,0,0,0.4);border:2px solid rgba(255,255,255,0.25);border-radius:7px;position:relative;}
-#mmFill{width:100%;background:#1e90d4;position:absolute;bottom:0;border-radius:5px;transition:height 0.1s;}
-#mmDot{width:12px;height:12px;background:#f5c211;border:2px solid #fff;border-radius:50%;position:absolute;left:1px;box-shadow:0 0 7px rgba(245,194,17,0.9);transition:bottom 0.1s;}
-.mm-label{font-family:'Fredoka One',sans-serif;font-size:9px;color:rgba(255,255,255,0.75);text-align:center;line-height:1.2;}
-/* Controls — pushed to very bottom */
+#minimap{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:22px;pointer-events:none;z-index:10;display:flex;flex-direction:column;align-items:center;gap:3px;}
+#mmTrack{width:12px;background:rgba(0,0,0,0.35);border:2px solid rgba(255,255,255,0.2);border-radius:6px;position:relative;}
+#mmFill{width:100%;background:#1e90d4;position:absolute;bottom:0;border-radius:4px;}
+#mmDot{width:10px;height:10px;background:#f5c211;border:2px solid #fff;border-radius:50%;position:absolute;left:1px;box-shadow:0 0 6px rgba(245,194,17,0.8);}
+.mm-label{font-family:'Fredoka One',sans-serif;font-size:9px;color:rgba(255,255,255,0.7);text-align:center;}
 #controls{position:absolute;bottom:0;left:0;right:0;height:150px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 18px 14px;pointer-events:none;z-index:15;}
 #joystickArea{position:relative;width:110px;height:110px;pointer-events:all;}
 #joystickBase{position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,0.1);border:3px solid rgba(255,255,255,0.22);}
 #joystickThumb{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.82);border:3px solid rgba(255,255,255,0.5);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 4px 12px rgba(0,0,0,0.3);}
 .right-btns{display:flex;flex-direction:column;gap:10px;align-items:flex-end;pointer-events:all;padding-bottom:2px;}
-.act-btn{border-radius:50%;border:4px solid rgba(255,255,255,0.35);color:#fff;font-family:'Fredoka One',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;gap:1px;transition:transform 0.08s,box-shadow 0.08s;}
+.act-btn{border-radius:50%;border:4px solid rgba(255,255,255,0.35);color:#fff;font-family:'Fredoka One',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;gap:1px;}
 #jumpBtn{width:74px;height:74px;background:linear-gradient(145deg,#f5c211,#c8960a);box-shadow:0 5px 0 #7a5a00,0 8px 18px rgba(245,194,17,0.4);font-size:10px;letter-spacing:1px;}
 #jumpBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #7a5a00;}
 #shootBtn{width:74px;height:74px;background:linear-gradient(145deg,#e03e3e,#b02020);box-shadow:0 5px 0 #6a1010,0 8px 18px rgba(224,62,62,0.4);font-size:10px;letter-spacing:1px;display:none;}
 #shootBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #6a1010;}
 .btn-icon{font-size:22px;line-height:1;}
-/* Overlay */
-#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:30;background:rgba(15,15,30,0.93);gap:12px;padding:20px;overflow-y:auto;}
+#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:30;background:rgba(15,15,30,0.93);gap:10px;padding:16px;overflow-y:auto;}
 .ov-logo{font-family:'Fredoka One',sans-serif;font-size:50px;line-height:1;text-align:center;color:#fff;text-shadow:4px 4px 0 #1e90d4,8px 8px 0 rgba(0,0,0,0.3);letter-spacing:2px;}
 .ov-logo span{color:#f5c211;}
+.ov-ver{font-family:'Nunito',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-top:-4px;}
 .ov-card{background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.15);border-radius:16px;padding:10px 18px;width:100%;max-width:320px;}
-.ov-row{display:flex;align-items:center;gap:10px;padding:4px 0;font-family:'Nunito',sans-serif;font-size:13px;color:rgba(255,255,255,0.85);}
-.ov-icon{font-size:18px;width:26px;text-align:center;}
+.ov-row{display:flex;align-items:center;gap:10px;padding:3px 0;font-family:'Nunito',sans-serif;font-size:12px;color:rgba(255,255,255,0.85);}
+.ov-icon{font-size:16px;width:24px;text-align:center;}
 .big-btn{background:linear-gradient(160deg,#3bb34a,#2a8a38);border:none;border-radius:16px;padding:14px 48px;font-family:'Fredoka One',sans-serif;font-size:26px;color:#fff;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 0 #1a5c24,0 10px 28px rgba(59,179,74,0.35);text-shadow:0 2px 4px rgba(0,0,0,0.3);}
 .big-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #1a5c24;}
 .score-final{font-family:'Fredoka One',sans-serif;font-size:30px;color:#f5c211;text-shadow:2px 2px 0 rgba(0,0,0,0.4);}
 #comboPopup{position:absolute;top:108px;left:50%;transform:translateX(-50%);font-family:'Fredoka One',sans-serif;font-size:22px;color:#f5c211;text-shadow:2px 2px 0 #a07000;pointer-events:none;z-index:20;opacity:0;transition:opacity 0.25s;white-space:nowrap;}
-/* Leaderboard */
-.lb-title{font-family:'Fredoka One',sans-serif;font-size:18px;color:#f5c211;text-align:center;margin-bottom:4px;letter-spacing:1px;}
+.lb-title{font-family:'Fredoka One',sans-serif;font-size:16px;color:#f5c211;text-align:center;margin-bottom:4px;}
 .lb-table{width:100%;border-collapse:collapse;}
-.lb-table td{font-family:'Nunito',sans-serif;font-size:13px;color:rgba(255,255,255,0.9);padding:3px 6px;}
-.lb-table tr:first-child td{color:#f5c211;font-size:15px;}
-.lb-table tr td:first-child{color:rgba(255,255,255,0.45);width:24px;}
+.lb-table td{font-family:'Nunito',sans-serif;font-size:12px;color:rgba(255,255,255,0.9);padding:2px 5px;}
+.lb-table tr:first-child td{color:#f5c211;font-size:14px;}
+.lb-table tr td:first-child{color:rgba(255,255,255,0.45);width:22px;}
 .lb-table tr td:last-child{text-align:right;color:#7de8ff;}
-.lb-loading{font-family:'Nunito',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);text-align:center;padding:8px;}
-/* Name entry */
-.name-prompt{font-family:'Fredoka One',sans-serif;font-size:16px;color:#fff;text-align:center;}
-.name-boxes{display:flex;gap:8px;justify-content:center;margin:8px 0;}
-.name-box{width:44px;height:54px;background:rgba(255,255,255,0.1);border:3px solid rgba(255,255,255,0.3);border-radius:10px;font-family:'Fredoka One',sans-serif;font-size:26px;color:#fff;text-align:center;text-transform:uppercase;outline:none;caret-color:transparent;}
+.lb-loading{font-family:'Nunito',sans-serif;font-size:12px;color:rgba(255,255,255,0.45);text-align:center;padding:6px;}
+.name-prompt{font-family:'Fredoka One',sans-serif;font-size:14px;color:#fff;text-align:center;margin-bottom:6px;}
+.name-boxes{display:flex;gap:6px;justify-content:center;margin-bottom:10px;}
+.name-box{width:40px;height:50px;background:rgba(255,255,255,0.1);border:3px solid rgba(255,255,255,0.3);border-radius:10px;font-family:'Fredoka One',sans-serif;font-size:24px;color:#fff;text-align:center;text-transform:uppercase;outline:none;caret-color:transparent;}
 .name-box:focus{border-color:#f5c211;background:rgba(245,194,17,0.15);}
-.sub-btn{background:linear-gradient(160deg,#1e90d4,#1060a0);border:none;border-radius:12px;padding:10px 36px;font-family:'Fredoka One',sans-serif;font-size:20px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #0a3a60;}
+.sub-btn{background:linear-gradient(160deg,#1e90d4,#1060a0);border:none;border-radius:12px;padding:10px 32px;font-family:'Fredoka One',sans-serif;font-size:18px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #0a3a60;}
 .sub-btn:active{transform:translateY(2px);}
-.skip-btn{background:none;border:none;font-family:'Nunito',sans-serif;font-size:13px;color:rgba(255,255,255,0.45);cursor:pointer;text-decoration:underline;}
+.skip-btn{background:none;border:none;font-family:'Nunito',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);cursor:pointer;text-decoration:underline;margin-top:4px;}
 </style>
 </head>
 <body>
 <div id="gameWrap">
 <canvas id="c"></canvas>
 <div id="hud">
-  <div class="hud-pill">🏆 <span class="val" id="scoreDisp">0</span></div>
-  <div class="hud-pill">🎿 RUN <span class="val" id="runDisp">1</span>/50</div>
-  <div class="hud-pill">❤️ <span class="val" id="livesDisp">3</span></div>
+  <div class="hud-pill">&#127942; <span class="val" id="scoreDisp">0</span></div>
+  <div class="hud-pill">&#127935; RUN <span class="val" id="runDisp">1</span>/50</div>
+  <div class="hud-pill">&#10084;&#65039; <span class="val" id="livesDisp">3</span></div>
 </div>
-<div id="modeBar">⛷️ SKI DOWN THE MOUNTAIN</div>
+<div id="modeBar">&#9975;&#65039; SKI DOWN THE MOUNTAIN</div>
 <div id="comboPopup"></div>
 <div id="minimap">
   <div class="mm-label">TOP</div>
@@ -80,1036 +76,593 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%;touch
 <div id="controls">
   <div id="joystickArea"><div id="joystickBase"></div><div id="joystickThumb"></div></div>
   <div class="right-btns">
-    <div id="shootBtn" class="act-btn"><div class="btn-icon">❄️</div>THROW</div>
-    <div id="jumpBtn" class="act-btn"><div class="btn-icon">🆙</div>JUMP</div>
+    <div id="shootBtn" class="act-btn"><div class="btn-icon">&#10052;&#65039;</div>THROW</div>
+    <div id="jumpBtn" class="act-btn"><div class="btn-icon">&#127513;</div>JUMP</div>
   </div>
 </div>
 <div id="overlay">
   <div class="ov-logo">POWDER<br><span>RUN</span></div>
-  <div style="font-family:'Nunito',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);margin-top:-8px;letter-spacing:1px;">v1.4</div>
+  <div class="ov-ver">v2.0</div>
   <div class="ov-card">
-    <div class="ov-row"><span class="ov-icon">🕹️</span>Joystick — steer left/right, push down to go faster, up to brake</div>
-    <div class="ov-row"><span class="ov-icon">🆙</span>JUMP over small trees. Ramp launch clears medium trees!</div>
-    <div class="ov-row"><span class="ov-icon">🌲</span>Small 🟢 Medium 🟤 Tall 🌲 — big dark trees can never be jumped!</div>
-    <div class="ov-row"><span class="ov-icon">🌀</span>Tap JUMP mid-air to do tricks for bonus points</div>
-    <div class="ov-row"><span class="ov-icon">🚠</span>Reach bottom → ski to a lift → ride up!</div>
-    <div class="ov-row"><span class="ov-icon">❄️</span>On lift → use joystick to AIM, tap THROW to shoot!</div>
+    <div class="ov-row"><span class="ov-icon">&#128377;&#65039;</span>Joystick - steer, push down=faster</div>
+    <div class="ov-row"><span class="ov-icon">&#127513;</span>JUMP over trees. Ramp = big air!</div>
+    <div class="ov-row"><span class="ov-icon">&#127744;</span>Tap JUMP mid-air for trick bonus</div>
+    <div class="ov-row"><span class="ov-icon">&#128640;</span>Reach bottom, ski to lift, ride up!</div>
+    <div class="ov-row"><span class="ov-icon">&#10052;&#65039;</span>On lift - aim joystick and THROW!</div>
+    <div class="ov-row"><span class="ov-icon">&#127935;</span>Complete 50 runs to win!</div>
   </div>
-  <div class="ov-card" style="max-width:320px;">
-    <div class="lb-title">🏆 TOP 10 SCORES</div>
-    <div id="lbDisplay"><div class="lb-loading">Loading…</div></div>
+  <div class="ov-card">
+    <div class="lb-title">&#127942; TOP 10</div>
+    <div id="lbDisplay"><div class="lb-loading">Loading...</div></div>
   </div>
   <button class="big-btn" id="startBtn">PLAY!</button>
 </div>
 </div>
 <script>
-// ── Supabase leaderboard via raw fetch (no CDN dependency) ─
-const SUPA_URL='https://lyvuwdsllthsbqsgcopa.supabase.co';
-const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5dnV3ZHNsbHRoc2Jxc2djb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjI0NTAsImV4cCI6MjA4ODQ5ODQ1MH0.BxRD1t3Ovnbohy-HGQ03WkhEuduvvmLTD9PTVwUrfAY';
-const SUPA_HEADERS={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
-
-async function fetchLeaderboard(){
-try{
-const r=await fetch(SUPA_URL+’/rest/v1/leaderboard?select=name,score,run&order=score.desc&limit=10’,{headers:SUPA_HEADERS});
-if(!r.ok)return [];
-return await r.json();
-}catch(e){return [];}
+var SUPA_URL='https://lyvuwdsllthsbqsgcopa.supabase.co';
+var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5dnV3ZHNsbHRoc2Jxc2djb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjI0NTAsImV4cCI6MjA4ODQ5ODQ1MH0.BxRD1t3Ovnbohy-HGQ03WkhEuduvvmLTD9PTVwUrfAY';
+var SH={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+async function fetchLB(){try{var r=await fetch(SUPA_URL+'/rest/v1/leaderboard?select=name,score,run&order=score.desc&limit=10',{headers:SH});return r.ok?await r.json():[]}catch(e){return []}}
+async function submitScore(n,s,r){try{await fetch(SUPA_URL+'/rest/v1/leaderboard',{method:'POST',headers:Object.assign({},SH,{'Prefer':'return=minimal'}),body:JSON.stringify({name:n.toUpperCase().slice(0,5),score:s,run:r})})}catch(e){}}
+function buildLBHTML(rows){
+  if(!rows||!rows.length)return '<div class="lb-loading">No scores yet!</div>';
+  var m=['&#129351;','&#129352;','&#129353;'];
+  var h='<table class="lb-table">';
+  rows.forEach(function(r,i){h+='<tr><td>'+(m[i]||(i+1)+'.')+'</td><td>'+r.name+'</td><td>R'+r.run+'</td><td>'+r.score.toLocaleString()+'</td></tr>';});
+  return h+'</table>';
 }
-
-async function submitScore(playerName,playerScore,playerRun){
-try{
-await fetch(SUPA_URL+’/rest/v1/leaderboard’,{
-method:‘POST’,
-headers:{…SUPA_HEADERS,‘Prefer’:‘return=minimal’},
-body:JSON.stringify({name:playerName.toUpperCase().slice(0,5),score:playerScore,run:playerRun})
-});
-}catch(e){console.warn(‘Score submit failed’,e);}
-}
-
-function buildLeaderboardHTML(rows){
-if(!rows||rows.length===0)return ‘<div class="lb-loading">No scores yet — be the first!</div>’;
-const medals=[‘🥇’,‘🥈’,‘🥉’];
-let html=’<table class="lb-table">’;
-rows.forEach((r,i)=>{
-const rank=medals[i]||(i+1)+’.’;
-html+=`<tr><td>${rank}</td><td>${r.name}</td><td>Run ${r.run}/50</td><td>${r.score.toLocaleString()}</td></tr>`;
-});
-return html+’</table>’;
-}
+fetchLB().then(function(rows){var el=document.getElementById('lbDisplay');if(el)el.innerHTML=buildLBHTML(rows);});
 </script>
-
 <script>
-const canvas=document.getElementById('c');
-const ctx=canvas.getContext('2d');
-let CW,CH;
-function resize(){
-  CW=canvas.width=window.innerWidth;
-  CH=canvas.height=window.innerHeight;
-}
+var canvas=document.getElementById('c');
+var ctx=canvas.getContext('2d');
+var CW,CH;
+function resize(){CW=canvas.width=window.innerWidth;CH=canvas.height=window.innerHeight;}
 resize();
 window.addEventListener('resize',resize);
-// Extra resize calls for mobile Safari which delays reporting correct height
-setTimeout(()=>{resize();},100);
-setTimeout(()=>{resize();},500);
+setTimeout(resize,200);
+setTimeout(resize,600);
 
-// ── Roblox draw helpers ────────────────────────────────
 function shiftCol(hex,n){
-  let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  r=Math.max(0,Math.min(255,r+n));g=Math.max(0,Math.min(255,g+n));b=Math.max(0,Math.min(255,b+n));
-  return '#'+r.toString(16).padStart(2,'0')+g.toString(16).padStart(2,'0')+b.toString(16).padStart(2,'0');
+var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+r=Math.max(0,Math.min(255,r+n));g=Math.max(0,Math.min(255,g+n));b=Math.max(0,Math.min(255,b+n));
+return ‘#’+[r,g,b].map(function(v){return v.toString(16).padStart(2,‘0’)}).join(’’);
 }
 function block(x,y,w,h,fc){
-  const d=Math.max(3,w*0.1);
-  ctx.fillStyle=fc;ctx.fillRect(x,y,w,h);
-  ctx.fillStyle=shiftCol(fc,45);
-  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+d,y-d);ctx.lineTo(x+w+d,y-d);ctx.lineTo(x+w,y);ctx.closePath();ctx.fill();
-  ctx.fillStyle=shiftCol(fc,-45);
-  ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w+d,y-d);ctx.lineTo(x+w+d,y+h-d);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='rgba(0,0,0,0.28)';ctx.lineWidth=1.2;ctx.strokeRect(x,y,w,h);
+var d=Math.max(3,w*0.1);
+ctx.fillStyle=fc;ctx.fillRect(x,y,w,h);
+ctx.fillStyle=shiftCol(fc,45);
+ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+d,y-d);ctx.lineTo(x+w+d,y-d);ctx.lineTo(x+w,y);ctx.closePath();ctx.fill();
+ctx.fillStyle=shiftCol(fc,-45);
+ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w+d,y-d);ctx.lineTo(x+w+d,y+h-d);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
+ctx.strokeStyle=‘rgba(0,0,0,0.28)’;ctx.lineWidth=1.2;ctx.strokeRect(x,y,w,h);
 }
-
-// Draw a Roblox character with optional spin angle for tricks
-function drawChar(x,y,s,bc,hc,hatc,flip,air,spinAngle){
-  ctx.save();
-  if(spinAngle){
-    ctx.translate(x+s*7,y+s*15);ctx.rotate(spinAngle);ctx.translate(-(x+s*7),-(y+s*15));
-  }
-  if(flip){ctx.translate(x+s*14,0);ctx.scale(-1,1);x=0;}
-  if(!air){ctx.fillStyle='rgba(0,0,0,0.12)';ctx.beginPath();ctx.ellipse(x+s*7,y+s*30,s*12,s*4,0,0,Math.PI*2);ctx.fill();}
-  const ly=air?y+s*16:y+s*19;
-  block(x+s*1,ly,s*5,s*10,shiftCol(bc,-20));
-  block(x+s*8,ly,s*5,s*10,shiftCol(bc,-20));
-  block(x,y+s*9,s*14,s*11,bc);
-  const ay=air?y+s*2:y+s*10;
-  block(x-s*5,ay,s*5,s*8,bc);
-  block(x+s*14,ay,s*5,s*8,bc);
-  block(x+s*1,y-s*1,s*12,s*11,hc);
-  ctx.fillStyle='#222';ctx.fillRect(x+s*3,y+s*2,s*3,s*3);ctx.fillRect(x+s*8,y+s*2,s*3,s*3);
-  ctx.fillStyle='#fff';ctx.fillRect(x+s*3,y+s*2,s*2,s*2);ctx.fillRect(x+s*8,y+s*2,s*2,s*2);
-  block(x-s*1,y-s*7,s*16,s*6,hatc);
-  block(x+s*2,y-s*13,s*10,s*7,hatc);
-  ctx.fillStyle='#111';ctx.fillRect(x-s*4,y+s*28,s*9,s*4);ctx.fillRect(x+s*7,y+s*28,s*9,s*4);
-  ctx.fillStyle='#555';ctx.fillRect(x-s*4,y+s*28,s*9,s*1.5);ctx.fillRect(x+s*7,y+s*28,s*9,s*1.5);
-  ctx.restore();
+function drawChar(x,y,s,bc,hc,hatc,flip,air,spin){
+ctx.save();
+if(spin){ctx.translate(x+s*7,y+s*15);ctx.rotate(spin);ctx.translate(-(x+s*7),-(y+s*15));}
+if(flip){ctx.translate(x+s*14,0);ctx.scale(-1,1);x=0;}
+if(!air){ctx.fillStyle=‘rgba(0,0,0,0.12)’;ctx.beginPath();ctx.ellipse(x+s*7,y+s*30,s*12,s*4,0,0,Math.PI*2);ctx.fill();}
+var ly=air?y+s*16:y+s*19;
+block(x+s*1,ly,s*5,s*10,shiftCol(bc,-20));block(x+s*8,ly,s*5,s*10,shiftCol(bc,-20));
+block(x,y+s*9,s*14,s*11,bc);
+var ay=air?y+s*2:y+s*10;
+block(x-s*5,ay,s*5,s*8,bc);block(x+s*14,ay,s*5,s*8,bc);
+block(x+s*1,y-s*1,s*12,s*11,hc);
+ctx.fillStyle=’#222’;ctx.fillRect(x+s*3,y+s*2,s*3,s*3);ctx.fillRect(x+s*8,y+s*2,s*3,s*3);
+ctx.fillStyle=’#fff’;ctx.fillRect(x+s*3,y+s*2,s*2,s*2);ctx.fillRect(x+s*8,y+s*2,s*2,s*2);
+block(x-s*1,y-s*7,s*16,s*6,hatc);block(x+s*2,y-s*13,s*10,s*7,hatc);
+ctx.fillStyle=’#111’;ctx.fillRect(x-s*4,y+s*28,s*9,s*4);ctx.fillRect(x+s*7,y+s*28,s*9,s*4);
+ctx.fillStyle=’#555’;ctx.fillRect(x-s*4,y+s*28,s*9,s*1.5);ctx.fillRect(x+s*7,y+s*28,s*9,s*1.5);
+ctx.restore();
 }
 function drawTree(x,y,sz,tier){
-  const t = tier ?? 0;
-  const s=sz/40;
-  // Trunk — taller for big trees
-  const trunkH = t===2 ? s*30 : t===1 ? s*22 : s*20;
-  block(x-s*4,y+s*22,s*8,trunkH, t===2?'#4a2e10':'#6b4520');
-  // Canopy colours — darker/richer for tall trees
-  const gc = t===2
-    ? ['#1a5028','#226035','#2d7a44']   // tall: very dark green
-    : t===1
-    ? ['#246035','#2e7842','#3a9654']   // medium: mid green
-    : ['#2a7040','#358a50','#42aa64'];  // small: bright green
-  const layers = t===2 ? 4 : 3;
-  for(let i=0;i<layers;i++){
-    const w=sz*(t===2 ? (1.2-i*0.22) : (1.05-i*0.26));
-    const yOff = t===2 ? -i*s*11 : -i*s*13;
-    block(x-w/2,y+yOff,w,s*18,gc[Math.min(i,gc.length-1)]);
-    ctx.fillStyle='rgba(228,246,255,0.55)';ctx.fillRect(x-w/2+2,y+yOff,w-4,s*5);
-  }
+tier=tier||0;var s=sz/40;
+var trunkH=tier===2?s*30:s*22;
+block(x-s*4,y+s*22,s*8,trunkH,tier===2?’#4a2e10’:’#6b4520’);
+var gc=tier===2?[’#1a5028’,’#226035’,’#2d7a44’]:tier===1?[’#246035’,’#2e7842’,’#3a9654’]:[’#2a7040’,’#358a50’,’#42aa64’];
+var layers=tier===2?4:3;
+for(var i=0;i<layers;i++){
+var w=sz*(tier===2?(1.2-i*0.22):(1.05-i*0.26));
+block(x-w/2,y-i*s*13,w,s*18,gc[Math.min(i,gc.length-1)]);
+ctx.fillStyle=‘rgba(228,246,255,0.55)’;ctx.fillRect(x-w/2+2,y-i*s*13,w-4,s*5);
+}
 }
 function drawBall(x,y,r,col){
-  ctx.fillStyle=col;ctx.beginPath();
-  for(let i=0;i<8;i++){const a=i/8*Math.PI*2;if(i===0)ctx.moveTo(x+Math.cos(a)*r,y+Math.sin(a)*r);else ctx.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r);}
-  ctx.closePath();ctx.fill();
-  ctx.strokeStyle='rgba(180,230,255,0.7)';ctx.lineWidth=1.5;ctx.stroke();
+ctx.fillStyle=col;ctx.beginPath();
+for(var i=0;i<8;i++){var a=i/8*Math.PI*2;if(!i)ctx.moveTo(x+Math.cos(a)*r,y+Math.sin(a)*r);else ctx.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r);}
+ctx.closePath();ctx.fill();
+ctx.strokeStyle=‘rgba(180,230,255,0.7)’;ctx.lineWidth=1.5;ctx.stroke();
 }
 function drawRamp(x,y,w,h){
-  // Reduced height by 50%: h is already halved when calling
-  ctx.fillStyle='#c8e8f8';ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
-  ctx.fillStyle='#eaf6ff';ctx.beginPath();ctx.moveTo(x+2,y+h-2);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+4);ctx.lineTo(x+2,y+h);ctx.closePath();ctx.fill();
-  ctx.fillStyle='#8abedc';ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w+6,y-6);ctx.lineTo(x+w+6,y+h-6);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='rgba(0,0,0,0.18)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.stroke();
-  ctx.fillStyle='rgba(30,144,212,0.7)';ctx.font='bold 11px Fredoka One,sans-serif';ctx.textAlign='center';ctx.fillText('JUMP!',x+w/2+3,y+h-4);ctx.textAlign='left';
+ctx.fillStyle=’#c8e8f8’;ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
+ctx.fillStyle=’#eaf6ff’;ctx.beginPath();ctx.moveTo(x+2,y+h-2);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+4);ctx.lineTo(x+2,y+h);ctx.closePath();ctx.fill();
+ctx.fillStyle=’#8abedc’;ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w+6,y-6);ctx.lineTo(x+w+6,y+h-6);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
+ctx.strokeStyle=‘rgba(0,0,0,0.2)’;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.stroke();
+ctx.fillStyle=‘rgba(30,144,212,0.7)’;ctx.font=‘bold 11px Fredoka One,sans-serif’;ctx.textAlign=‘center’;ctx.fillText(‘JUMP!’,x+w/2+3,y+h-4);ctx.textAlign=‘left’;
 }
 
-// ── Constants ──────────────────────────────────────────
-const WORLD_W=525;  // 25% narrower (700 * 0.75)
-const HILL_LEN=14400;  // 20% shorter (18000 * 0.8)
-const NPC_C=[['#e03e3e','#f5c6a0','#1e90d4'],['#1e90d4','#f5c6a0','#e03e3e'],['#3bb34a','#f5c6a0','#f5c211'],['#f5c211','#f5c6a0','#e03e3e'],['#9b59b6','#f5c6a0','#3bb34a']];
-const PLAYER_SCREEN_Y=()=>CH*0.42;
+var WORLD_W=525,HILL_LEN=14400;
+var NPC_C=[[’#e03e3e’,’#f5c6a0’,’#1e90d4’],[’#1e90d4’,’#f5c6a0’,’#e03e3e’],[’#3bb34a’,’#f5c6a0’,’#f5c211’],[’#f5c211’,’#f5c6a0’,’#e03e3e’],[’#9b59b6’,’#f5c6a0’,’#3bb34a’]];
+function PSY(){return CH*0.42;}
+var LL_WX=-18,RL_WX=WORLD_W+18;
 
-// ── State ──────────────────────────────────────────────
-let state='menu',score=0,lives=3,run=1;
+var state=‘menu’,score=0,lives=3,run=1;
+var P={wx:WORLD_W/2,wy:0,vx:0,vy:0,jz:0,vjz:0,onGround:true,invincible:0,w:26,h:36,spin:0,spinV:0,trickN:0,inAir:false};
+var cam={x:0,y:0};
+var trees=[],ramps=[],snowballs=[],particles=[],playerBalls=[];
+var WTREES=[],WRAMPS=[];
+var liftRiders=[];
+var bPlayer={x:0,y:0,vx:0,vy:0};
+function LLX(){return CW*0.13;} function RLX(){return CW*0.87;} function BFLY(){return CH*0.60;}
+var liftSide=‘left’,liftScrollY=0,liftNpcs=[];
+var aimX=0,aimY=0,shootReload=0;
+var mtReady=false;
+var mtP={x:0,y:0,vx:0,vy:0};
+var hillSeed=0;
 
-// World seed — same hill going down and going up
-let hillSeed=0;
-function seededRand(seed){let x=Math.sin(seed)*10000;return x-Math.floor(x);}
-
-// Player (skiing)
-const P={wx:WORLD_W/2,wy:0,vx:0,vy:0,jz:0,vjz:0,onGround:true,invincible:0,w:26,h:36,
-         trickAngle:0,trickSpin:0,trickCount:0,inAir:false};
-const cam={x:0,y:0};
-
-// World objects
-const trees=[],ramps=[],snowballs=[],particles=[],playerBalls=[];
-
-// Chairlift riders — FIXED at left/right edges
-const LEFT_LIFT_WX=-18, RIGHT_LIFT_WX=WORLD_W+18;
-const liftRiders=[];
-
-// Bottom scene
-let bPlayer={x:0,y:0,vx:0,vy:0};
-const LIFT_L_SX=()=>CW*0.13;
-const LIFT_R_SX=()=>CW*0.87;
-const BOT_FLOOR_Y=()=>CH*0.60;
-
-// Lift-up state
-let liftSide='left',liftScrollY=0;
-const liftNpcs=[];
-// Manual aim crosshair position (screen coords, controlled by joystick during lift_up)
-let aimX=0,aimY=0;
-
-// Mountaintop
-let mtPlayer={x:0,y:0,vx:0,vy:0};
-let mtReady=false;
-
-// ── Deterministic world generation ────────────────────
-// Trees and ramps are placed using a seeded function so the hill
-// is IDENTICAL whether skiing down or riding up.
-const WORLD_TREES=[];
-const WORLD_RAMPS=[];
-
-// Tree tiers:
-//   small (tier 0): sz 18-28  — always jumpable (jz > 2)
-//   medium(tier 1): sz 34-46  — only clearable off a ramp (jz > 18)
-//   tall  (tier 2): sz 52-68  — NEVER jumpable
-function makeTree(wx, wy, s_ref, sideProb){
-  // s_ref is an array [val] so caller can increment a seed counter
-  const tierRoll = seededRand(s_ref[0]++);
-  let tier, sz;
-  if(tierRoll < 0.42){      tier=0; sz=18+seededRand(s_ref[0]++)*10;}  // small 42%
-  else if(tierRoll < 0.78){ tier=1; sz=34+seededRand(s_ref[0]++)*12;}  // medium 36%
-  else{                      tier=2; sz=52+seededRand(s_ref[0]++)*16;}  // tall 22%
-  return {wx, wy, sz, tier};
+function sr(s){var x=Math.sin(s[0]++)*10000;return x-Math.floor(x);}
+function makeTree(wx,wy,s){
+var roll=sr(s),tier,sz;
+if(roll<0.42){tier=0;sz=18+sr(s)*10;}
+else if(roll<0.78){tier=1;sz=34+sr(s)*12;}
+else{tier=2;sz=52+sr(s)*16;}
+return{wx:wx,wy:wy,sz:sz,tier:tier,hit:false};
 }
-
 function buildHill(){
-  WORLD_TREES.length=0;WORLD_RAMPS.length=0;
-  let s=[hillSeed];
-  // Difficulty 0.0 (run 1) → 1.0 (run 50)
-  const diff=Math.min(1,(run-1)/49);
-  // Row spacing: run1=46px (30% more trees vs 60), run50=32px
-  const rowSpacing=Math.floor(46-diff*14);
-  // Side tree probability: run1=0.92, run50=0.99
-  const sideProb=0.92+diff*0.07;
-  // Middle tree probability: run1=0.22, run50=0.65
-  const midProb=0.22+diff*0.43;
-  // Extra middle row: run1=0.08, run50=0.35
-  const midProb2=0.08+diff*0.27;
-
-  for(let wy=200;wy<HILL_LEN;wy+=rowSpacing+Math.floor(seededRand(s[0]++)*40)){
-    if(seededRand(s[0]++)<sideProb)  WORLD_TREES.push(makeTree(10+seededRand(s[0]++)*WORLD_W*0.26, wy, s));
-    if(seededRand(s[0]++)<sideProb*0.65) WORLD_TREES.push(makeTree(8+seededRand(s[0]++)*WORLD_W*0.22, wy+seededRand(s[0]++)*40, s));
-    if(seededRand(s[0]++)<sideProb)  WORLD_TREES.push(makeTree(WORLD_W*0.74+seededRand(s[0]++)*WORLD_W*0.24, wy+seededRand(s[0]++)*40, s));
-    if(seededRand(s[0]++)<sideProb*0.65) WORLD_TREES.push(makeTree(WORLD_W*0.78+seededRand(s[0]++)*WORLD_W*0.20, wy+seededRand(s[0]++)*50, s));
-    if(seededRand(s[0]++)<midProb)   WORLD_TREES.push(makeTree(WORLD_W*0.28+seededRand(s[0]++)*WORLD_W*0.44, wy+20+seededRand(s[0]++)*55, s));
-    if(seededRand(s[0]++)<midProb2)  WORLD_TREES.push(makeTree(WORLD_W*0.33+seededRand(s[0]++)*WORLD_W*0.34, wy+seededRand(s[0]++)*60, s));
-  }
-  // Ramps — slightly more frequent at higher runs
-  const rampSpacing=Math.floor(650-diff*200);
-  for(let wy=400;wy<HILL_LEN;wy+=rampSpacing+Math.floor(seededRand(s[0]++)*250)){
-    WORLD_RAMPS.push({wx:WORLD_W*0.22+seededRand(s[0]++)*WORLD_W*0.56,wy,w:50+seededRand(s[0]++)*20,h:12+seededRand(s[0]++)*6});
-  }
+WTREES.length=0;WRAMPS.length=0;
+var s=[hillSeed];
+var diff=Math.min(1,(run-1)/49);
+var rowSp=Math.floor(46-diff*14);
+var sP=0.92+diff*0.07,mP=0.22+diff*0.43,mP2=0.08+diff*0.27;
+for(var wy=200;wy<HILL_LEN;wy+=rowSp+Math.floor(sr(s)*40)){
+if(sr(s)<sP)WTREES.push(makeTree(10+sr(s)*WORLD_W*0.26,wy,s));
+if(sr(s)<sP*0.65)WTREES.push(makeTree(8+sr(s)*WORLD_W*0.22,wy+sr(s)*40,s));
+if(sr(s)<sP)WTREES.push(makeTree(WORLD_W*0.74+sr(s)*WORLD_W*0.24,wy+sr(s)*40,s));
+if(sr(s)<sP*0.65)WTREES.push(makeTree(WORLD_W*0.78+sr(s)*WORLD_W*0.20,wy+sr(s)*50,s));
+if(sr(s)<mP)WTREES.push(makeTree(WORLD_W*0.28+sr(s)*WORLD_W*0.44,wy+20+sr(s)*55,s));
+if(sr(s)<mP2)WTREES.push(makeTree(WORLD_W*0.33+sr(s)*WORLD_W*0.34,wy+sr(s)*60,s));
 }
-
-function loadChunkIntoArrays(){
-  // Build a map of currently-hit trees by position key so hits survive refresh
-  const hitKeys=new Set();
-  for(const t of trees) if(t.hit) hitKeys.add(`${Math.round(t.wx)}_${Math.round(t.wy)}`);
-  trees.length=0;ramps.length=0;
-  const minWY=P.wy-CH*0.6,maxWY=P.wy+CH*2.2;
-  for(const t of WORLD_TREES){
-    if(t.wy>=minWY&&t.wy<=maxWY){
-      const key=`${Math.round(t.wx)}_${Math.round(t.wy)}`;
-      trees.push({...t,hit:hitKeys.has(key)});
-    }
-  }
-  for(const r of WORLD_RAMPS){
-    if(r.wy>=minWY&&r.wy<=maxWY) ramps.push({...r});
-  }
+var rSp=Math.floor(650-diff*200);
+for(var wy2=400;wy2<HILL_LEN;wy2+=rSp+Math.floor(sr(s)*250)){
+WRAMPS.push({wx:WORLD_W*0.22+sr(s)*WORLD_W*0.56,wy:wy2,w:50+sr(s)*20,h:12+sr(s)*6,triggered:false});
 }
-
-// When going UP — get trees/ramps near a given world Y (for lift view)
-function getVisibleForLift(liftWY){
-  const minWY=liftWY-CH*0.5,maxWY=liftWY+CH*2;
-  const vis_trees=[];const vis_ramps=[];
-  for(const t of WORLD_TREES) if(t.wy>=minWY&&t.wy<=maxWY) vis_trees.push(t);
-  for(const r of WORLD_RAMPS) if(r.wy>=minWY&&r.wy<=maxWY) vis_ramps.push(r);
-  return {vis_trees,vis_ramps};
 }
-
+function loadNearby(){
+trees.length=0;ramps.length=0;
+var mn=P.wy-200,mx=P.wy+3000;
+for(var i=0;i<WTREES.length;i++){var t=WTREES[i];if(t.wy>=mn&&t.wy<=mx)trees.push(t);}
+for(var j=0;j<WRAMPS.length;j++){var r=WRAMPS[j];if(r.wy>=mn&&r.wy<=mx)ramps.push(r);}
+}
+var _lastChunk=-99;
 function initLiftRiders(){
-  liftRiders.length=0;
-  // 5 riders per side, placed at fixed intervals AHEAD of player (lower wy = further down slope)
-  // Player starts at wy=0 and skis DOWN (wy increases). Riders sit at wy BELOW player
-  // so player skis INTO them. They recycle when player passes them.
-  for(let i=0;i<5;i++){
-    const ci=i%NPC_C.length;
-    const ahead=200+i*280;  // 200, 480, 760, 1040, 1320 units ahead (downhill)
-    liftRiders.push({wx:LEFT_LIFT_WX,  wy:P.wy+ahead,       vy:0, c:NPC_C[ci],                     shootTimer:5+i*8, side:'L'});
-    liftRiders.push({wx:RIGHT_LIFT_WX, wy:P.wy+ahead+140,   vy:0, c:NPC_C[(ci+2)%NPC_C.length],    shootTimer:12+i*8,side:'R'});
-  }
+liftRiders.length=0;
+for(var i=0;i<5;i++){
+liftRiders.push({wx:LL_WX,wy:P.wy+200+i*280,c:NPC_C[i%5],st:5+i*8});
+liftRiders.push({wx:RL_WX,wy:P.wy+340+i*280,c:NPC_C[(i+2)%5],st:12+i*8});
 }
-
+}
 function initLevel(){
-  hillSeed=Math.floor(Math.random()*9999);
-  buildHill();
-  trees.length=0;ramps.length=0;snowballs.length=0;particles.length=0;playerBalls.length=0;
-  liftNpcs.length=0;
-  P.wx=WORLD_W/2;P.wy=0;P.vx=0;P.vy=2.5;P.jz=0;P.vjz=0;P.onGround=true;P.invincible=60;
-  P.trickAngle=0;P.trickSpin=0;P.trickCount=0;P.inAir=false;P._lastChunk=-99;
-  cam.x=P.wx-CW/2;cam.y=P.wy-PLAYER_SCREEN_Y();
-  loadChunkIntoArrays();
-  initLiftRiders();
+hillSeed=Math.floor(Math.random()*9999);buildHill();
+trees.length=0;ramps.length=0;snowballs.length=0;particles.length=0;playerBalls.length=0;liftNpcs.length=0;
+P.wx=WORLD_W/2;P.wy=0;P.vx=0;P.vy=2.5;P.jz=0;P.vjz=0;P.onGround=true;P.invincible=60;
+P.spin=0;P.spinV=0;P.trickN=0;P.inAir=false;
+cam.x=P.wx-CW/2;cam.y=P.wy-PSY();
+_lastChunk=-99;loadNearby();initLiftRiders();
 }
 
-// ── Joystick ───────────────────────────────────────────
-let joyX=0,joyY=0,joyId=null,joyStartX=0,joyStartY=0;
-const JOY_MAX=36;
-const joyArea=document.getElementById('joystickArea');
-const joyThumb=document.getElementById('joystickThumb');
-joyArea.addEventListener('touchstart',e=>{e.preventDefault();const t=e.changedTouches[0];joyId=t.identifier;joyStartX=t.clientX;joyStartY=t.clientY;},{passive:false});
-document.addEventListener('touchmove',e=>{
-  e.preventDefault();
-  for(const t of e.changedTouches){
-    if(t.identifier===joyId){
-      const dx=Math.max(-JOY_MAX,Math.min(JOY_MAX,t.clientX-joyStartX));
-      const dy=Math.max(-JOY_MAX,Math.min(JOY_MAX,t.clientY-joyStartY));
-      joyX=dx/JOY_MAX;joyY=dy/JOY_MAX;
-      joyThumb.style.left=(50+joyX*42)+'%';joyThumb.style.top=(50+joyY*42)+'%';
-    }
-  }
+var joyX=0,joyY=0,joyId=null,joyStartX=0,joyStartY=0;
+var JM=38;
+var joyArea=document.getElementById(‘joystickArea’);
+var joyThumb=document.getElementById(‘joystickThumb’);
+joyArea.addEventListener(‘touchstart’,function(e){e.preventDefault();var t=e.changedTouches[0];joyId=t.identifier;joyStartX=t.clientX;joyStartY=t.clientY;},{passive:false});
+document.addEventListener(‘touchmove’,function(e){
+e.preventDefault();
+for(var i=0;i<e.changedTouches.length;i++){
+var t=e.changedTouches[i];
+if(t.identifier===joyId){
+var dx=Math.max(-JM,Math.min(JM,t.clientX-joyStartX));
+var dy=Math.max(-JM,Math.min(JM,t.clientY-joyStartY));
+joyX=dx/JM;joyY=dy/JM;
+joyThumb.style.left=(50+joyX*42)+’%’;joyThumb.style.top=(50+joyY*42)+’%’;
+}
+}
 },{passive:false});
-document.addEventListener('touchend',e=>{
-  for(const t of e.changedTouches){
-    if(t.identifier===joyId){joyId=null;joyX=0;joyY=0;joyThumb.style.left='50%';joyThumb.style.top='50%';}
-  }
-});
-
-const keys={};
-document.addEventListener('keydown',e=>{
-  keys[e.key]=true;
-  if(e.key===' ')doJumpOrTrick();
-  if(e.key==='z'||e.key==='Z')doShoot();
-  if(state==='gameover'&&e.key==='Enter')startGame();
-});
-document.addEventListener('keyup',e=>{keys[e.key]=false;});
-
-// Jump / trick logic
-function doJumpOrTrick(){
-  if(state==='skiing'){
-    if(P.onGround){
-      // Jump: reduced height by 50% — vjz=8 instead of 15
-      P.vjz=8;P.onGround=false;P.inAir=true;
-      P.trickAngle=0;P.trickSpin=0;
-    } else if(P.inAir&&P.jz>0){
-      // Mid-air trick!
-      P.trickCount++;
-      const tricks=['360! 🌀','BACKFLIP! 🤸','GRAB! ✌️','RODEO! 🤠','CORK! 🍾'];
-      const name=tricks[(P.trickCount-1)%tricks.length];
-      P.trickSpin+=Math.PI*2; // trigger a full spin
-      const pts=100*P.trickCount;
-      score+=pts;updateHUD();
-      combo(`${name} +${pts}`);
-    }
-  }
-  if(state==='mountaintop'&&mtReady)dropIn();
+document.addEventListener(‘touchend’,function(e){
+for(var i=0;i<e.changedTouches.length;i++){
+var t=e.changedTouches[i];
+if(t.identifier===joyId){joyId=null;joyX=0;joyY=0;joyThumb.style.left=‘50%’;joyThumb.style.top=‘50%’;}
 }
+});
+var keys={};
+document.addEventListener(‘keydown’,function(e){keys[e.key]=true;if(e.key===’ ’)doJump();if(e.key===‘z’||e.key===‘Z’)doShoot();});
+document.addEventListener(‘keyup’,function(e){keys[e.key]=false;});
 
-// Shoot — one ball at a time with fixed 0.5s (30 frame) reload
-let shootReload=0;
+function doJump(){
+if(state===‘skiing’){
+if(P.onGround){P.vjz=8;P.onGround=false;P.inAir=true;P.spin=0;P.spinV=0;P.trickN=0;}
+else if(P.inAir&&P.jz>0){
+P.trickN++;
+var tnames=[‘360! O’,‘BACKFLIP! +’,‘GRAB! V’,‘RODEO! *’];
+P.spinV+=Math.PI*2;
+var pts=100*P.trickN;score+=pts;updateHUD();combo(tnames[(P.trickN-1)%tnames.length]+’ +’+pts);
+}
+}
+if(state===‘mountaintop’&&mtReady)dropIn();
+}
 function doShoot(){
-  if(state!=='lift_up')return;
-  if(shootReload>0)return;
-  const cableX=liftSide==='left'?CW*0.25:CW*0.75;
-  const px=cableX, py=CH*0.72-52;
-  const dx=aimX-px, dy=aimY-py, d=Math.sqrt(dx*dx+dy*dy)||1;
-  playerBalls.push({x:px,y:py,vx:dx/d*13,vy:dy/d*13,r:10});
-  shootReload=30;  // 0.5s at 60fps
+if(state!==‘lift_up’||shootReload>0)return;
+var cx=liftSide===‘left’?CW*0.25:CW*0.75,cy=CH*0.72-52;
+var dx=aimX-cx,dy=aimY-cy,d=Math.sqrt(dx*dx+dy*dy)||1;
+playerBalls.push({x:cx,y:cy,vx:dx/d*13,vy:dy/d*13,r:10});
+shootReload=30;
 }
+document.getElementById(‘jumpBtn’).addEventListener(‘touchstart’,function(e){e.preventDefault();e.stopPropagation();doJump();},{passive:false});
+document.getElementById(‘jumpBtn’).addEventListener(‘click’,doJump);
+document.getElementById(‘shootBtn’).addEventListener(‘touchstart’,function(e){e.preventDefault();e.stopPropagation();doShoot();},{passive:false});
+document.getElementById(‘shootBtn’).addEventListener(‘click’,doShoot);
 
-document.getElementById('jumpBtn').addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();doJumpOrTrick();},{passive:false});
-document.getElementById('jumpBtn').addEventListener('click',doJumpOrTrick);
-document.getElementById('shootBtn').addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();doShoot();},{passive:false});
-document.getElementById('shootBtn').addEventListener('click',doShoot);
-
-// ── Update: skiing ─────────────────────────────────────
-function updateSkiing(){
-  let mx=joyX,my=joyY;
-  if(keys['ArrowLeft']||keys['a'])mx=-1;
-  if(keys['ArrowRight']||keys['d'])mx=1;
-  if(keys['ArrowDown']||keys['s'])my=1;
-  if(keys['ArrowUp']||keys['w'])my=-1;
-
-  // down=faster, up=brake
-  const baseVY=2.8+Math.min(4,P.wy/3000);
-  P.vx+=mx*0.9;P.vx*=0.80;
-  P.vy+=(baseVY+my*3.5-P.vy)*0.07;
-  P.vy=Math.max(0.2,Math.min(13,P.vy));
-
-  // Jump Z physics — clean single update per frame
-  if(!P.onGround){
-    P.jz+=P.vjz;
-    P.vjz-=0.7;  // gravity — halved from original for shorter hops
-    if(P.jz<=0){
-      P.jz=0;P.vjz=0;P.onGround=true;P.inAir=false;P.trickCount=0;
-      P.trickAngle=0;P.trickSpin=0;
-    }
-  }
-
-  // Trick spin animation
-  if(P.trickSpin>0.05){
-    const spinStep=P.trickSpin*0.18;
-    P.trickAngle+=spinStep;
-    P.trickSpin-=spinStep;
-    if(P.trickSpin<0.05)P.trickSpin=0;
-  }
-
-  P.wx+=P.vx;P.wy+=P.vy;
-  P.wx=Math.max(10,Math.min(WORLD_W-10,P.wx));
-  cam.x=P.wx-CW/2;cam.y=P.wy-PLAYER_SCREEN_Y();
-
-  // Refresh visible world objects — only rebuild when crossing a 200px boundary
-  const chunkKey=Math.floor(P.wy/200);
-  if(chunkKey!==P._lastChunk){P._lastChunk=chunkKey;loadChunkIntoArrays();}
-
-  // Lift riders — stationary on cables, recycle 200-600px ahead when player passes them
-  for(const r of liftRiders){
-    // If player has passed this rider (gone more than 50px below it), jump it back ahead
-    if(P.wy > r.wy + 50){
-      r.wy = P.wy + 200 + Math.random()*500;
-      r.shootTimer = 5 + Math.random()*10;
-    }
-    r.shootTimer--;
-    if(r.shootTimer<=0){
-      // Run 1: every 192-320 frames. Run 50: every 80-130 frames.
-      const diff=Math.min(1,(run-1)/49);
-      const minT=Math.floor(192-diff*112), maxT=Math.floor(128-diff*68);
-      r.shootTimer = minT + Math.random()*Math.max(20,maxT);
-      spawnBallAt(r.wx, r.wy);
-    }
-  }
-
-  // Enemy snowballs
-  for(let i=snowballs.length-1;i>=0;i--){
-    const s=snowballs[i];s.wx+=s.vx;s.wy+=s.vy;
-    if(Math.hypot(s.wx-P.wx,s.wy-P.wy)>CH*3){snowballs.splice(i,1);continue;}
-    if(P.invincible<=0&&P.jz<10){
-      if(Math.hypot(s.wx-P.wx,s.wy-P.wy)<s.r+12){
-        snowballs.splice(i,1);lives--;P.invincible=110;updateHUD();combo('OUCH! ❄️');
-        spawnParticles(P.wx,P.wy,'#b0d8ff',8,'world');
-        if(lives<=0){gameOver();return;}
-      }
-    }
-  }
-  if(P.invincible>0)P.invincible--;
-
-  // Tree collisions — tier controls jump clearance
-  // tier 0 (small):  clearable with any jump (jz > 2)
-  // tier 1 (medium): only clearable off a ramp jump (jz > 18)
-  // tier 2 (tall):   never clearable
-  for(const t of trees){
-    if(t.hit)continue;
-    const tier = t.tier ?? 0;
-    const clearable = tier===0 ? P.jz>2 : tier===1 ? P.jz>18 : false;
-    if(clearable)continue;
-    const hitW = t.sz*(tier===2?0.32:0.26);
-    const hitH = t.sz*(tier===2?0.38:0.30);
-    if(Math.abs(P.wx-t.wx)<hitW && Math.abs(P.wy-t.wy)<hitH){
-      t.hit=true;
-      if(P.invincible<=0){
-        lives--;P.invincible=120;updateHUD();
-        const msgs=['HIT TREE! 🌲','OUCH! 🌲','WIPEOUT! 🌲'];
-        combo(msgs[tier]);
-        spawnParticles(P.wx,P.wy,'#4cb86b',10,'world');
-        P.vx*=-1.5;P.vy=Math.max(0.5,P.vy*0.3);
-        if(lives<=0){gameOver();return;}
-      }
-    }
-  }
-
-  // Ramps — detect when player passes through ramp zone
-  for(const r of ramps){
-    if(P.onGround&&!r.triggered){
-      const inX=P.wx>r.wx-5&&P.wx<r.wx+r.w+5;
-      const inY=P.wy>=r.wy&&P.wy<=r.wy+r.h+20;
-      if(inX&&inY){
-        r.triggered=true;
-        P.vjz=12;P.onGround=false;P.inAir=true;P.trickCount=0;
-        const bonus=80+Math.floor(P.vy*12);
-        score+=bonus;updateHUD();combo(`🏔️ RAMP! +${bonus}`);
-        spawnParticles(P.wx,P.wy,'#ffffff',10,'world');
-      }
-    }
-    if(!P.onGround&&r.triggered&&P.wy>r.wy+r.h+40) r.triggered=false;
-  }
-
-  // Particles
-  for(let i=particles.length-1;i>=0;i--){
-    const p=particles[i];p.wx+=p.vx;p.wy+=p.vy;p.life--;
-    if(p.life<=0)particles.splice(i,1);
-  }
-
-  // Reached bottom
-  if(P.wy>=HILL_LEN){
-    score+=300;updateHUD();combo('🏁 +300 REACHED BOTTOM!');
-    enterBottom();
-  }
-
-  updateMinimap();
-}
-
-function spawnBallAt(wx,wy){
-  // Lead the target: predict where player will be based on current velocity
-  const lead=30; // frames of lead time
-  const targetWx=P.wx + P.vx*lead*0.4;
-  const targetWy=P.wy + P.vy*lead;
-  const dx=targetWx-wx, dy=targetWy-wy, d=Math.sqrt(dx*dx+dy*dy)||1;
-  const spd=2.8+Math.random()*1.4;  // 30% slower: was 4-6
-  snowballs.push({wx,wy,vx:dx/d*spd,vy:dy/d*spd,r:9});
-}
-function spawnParticles(wx,wy,col,n,mode){
-  for(let i=0;i<n;i++){
-    const a=Math.random()*Math.PI*2,spd=1.5+Math.random()*3;
-    particles.push({wx,wy,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd,r:3+Math.random()*4,col,life:30+Math.random()*20,mode});
-  }
-}
-
-// ── Bottom scene ───────────────────────────────────────
-function enterBottom(){
-  state='bottom';
-  setModeBar(`🏠 RUN ${run} — SKI TO A LIFT!`,'#27ae60');
-  document.getElementById('shootBtn').style.display='none';
-  document.getElementById('jumpBtn').style.display='flex';
-  document.getElementById('minimap').style.display='none';
-  bPlayer={x:CW/2-13,y:BOT_FLOOR_Y()-70,vx:0,vy:0};
-  snowballs.length=0;particles.length=0;
-}
-function updateBottom(){
-  let mx=joyX,my=joyY;
-  if(keys['ArrowLeft']||keys['a'])mx=-1;if(keys['ArrowRight']||keys['d'])mx=1;
-  if(keys['ArrowUp']||keys['w'])my=-1;if(keys['ArrowDown']||keys['s'])my=1;
-  bPlayer.vx+=mx*0.8;bPlayer.vy+=my*0.8;bPlayer.vx*=0.75;bPlayer.vy*=0.75;
-  bPlayer.x+=bPlayer.vx;bPlayer.y+=bPlayer.vy;
-  bPlayer.x=Math.max(20,Math.min(CW-40,bPlayer.x));
-  bPlayer.y=Math.max(CH*0.1,Math.min(CH*0.85,bPlayer.y));
-  const liftY=BOT_FLOOR_Y()-35;
-  if(Math.hypot(bPlayer.x-LIFT_L_SX(),bPlayer.y-liftY)<55){
-    liftSide='left';combo('🚠 BOARDING LEFT LIFT!');state='boarding';
-    setTimeout(enterLiftUp,600);
-  }
-  if(Math.hypot(bPlayer.x-LIFT_R_SX(),bPlayer.y-liftY)<55){
-    liftSide='right';combo('🚠 BOARDING RIGHT LIFT!');state='boarding';
-    setTimeout(enterLiftUp,600);
-  }
-}
-
-// ── Lift up ────────────────────────────────────────────
-function enterLiftUp(){
-  state='lift_up';
-  liftScrollY=0;liftNpcs.length=0;playerBalls.length=0;particles.length=0;shootReload=0;
-  setModeBar(`🚠 RUN ${run} — RIDE UP & SHOOT!`,'#e03e3e');
-  document.getElementById('shootBtn').style.display='flex';
-  document.getElementById('jumpBtn').style.display='none';
-  document.getElementById('minimap').style.display='flex';
-  // Init aim at center of screen
-  aimX=CW/2; aimY=CH*0.4;
-  // Start with 4 NPCs spread out
-  for(let i=0;i<4;i++) spawnLiftNpc(-80-i*160);
-}
-function spawnLiftNpc(yOff){
-  const ci=Math.floor(Math.random()*NPC_C.length);
-  liftNpcs.push({x:CW*0.15+Math.random()*CW*0.70,y:yOff!==undefined?yOff:(-60-Math.random()*80),vx:(Math.random()-0.5)*1.5,vy:1.96+Math.random()*0.98,c:NPC_C[ci]});  // 30% slower (was 2.8+1.4)
-}
-function updateLiftUp(){
-  liftScrollY+=5.0;
-  if(shootReload>0)shootReload--;
-
-  // Move crosshair with joystick / arrow keys — player controls aim manually
-  const aimSpd=7;
-  let ax=joyX, ay=joyY;
-  if(keys['ArrowLeft']||keys['a'])ax=-1;
-  if(keys['ArrowRight']||keys['d'])ax=1;
-  if(keys['ArrowUp']||keys['w'])ay=-1;
-  if(keys['ArrowDown']||keys['s'])ay=1;
-  aimX+=ax*aimSpd;
-  aimY+=ay*aimSpd;
-  aimX=Math.max(20,Math.min(CW-20,aimX));
-  aimY=Math.max(20,Math.min(CH-80,aimY));
-
-  // Keep 6-8 NPCs on screen constantly
-  if(liftNpcs.length<8&&liftScrollY%60<5)spawnLiftNpc();
-
-  for(let i=liftNpcs.length-1;i>=0;i--){
-    const n=liftNpcs[i];n.x+=n.vx;n.y+=n.vy;
-    n.vx+=(Math.random()-0.5)*0.1;n.vx=Math.max(-3,Math.min(3,n.vx));
-    if(n.x<0)n.vx=Math.abs(n.vx);if(n.x>CW-30)n.vx=-Math.abs(n.vx);
-    if(n.y>CH+80)liftNpcs.splice(i,1);
-  }
-
-  for(let i=playerBalls.length-1;i>=0;i--){
-    const s=playerBalls[i];s.x+=s.vx;s.y+=s.vy;
-    if(s.x<-30||s.x>CW+30||s.y<-30||s.y>CH+30){playerBalls.splice(i,1);continue;}
-    let hit=false;
-    for(let j=liftNpcs.length-1;j>=0;j--){
-      const n=liftNpcs[j];
-      if(s.x>n.x-4&&s.x<n.x+32&&s.y>n.y-4&&s.y<n.y+44){
-        score+=50;updateHUD();combo('+50 💥 HIT!');
-        spawnParticles(n.x+14,n.y+14,'#ffffff',8,'screen');
-        liftNpcs.splice(j,1);hit=true;break;
-      }
-    }
-    if(hit)playerBalls.splice(i,1);
-  }
-  for(let i=particles.length-1;i>=0;i--){
-    const p=particles[i];p.wx+=p.vx;p.wy+=p.vy;p.life--;
-    if(p.life<=0)particles.splice(i,1);
-  }
-  updateMinimapLift();
-  if(liftScrollY>=HILL_LEN)enterMountaintop();
-}
-
-// ── Mountaintop ────────────────────────────────────────
-function enterMountaintop(){
-  state='mountaintop';
-  setModeBar('🏔️ SKI TO THE DROP-IN!','#9b59b6');
-  document.getElementById('shootBtn').style.display='none';
-  document.getElementById('jumpBtn').style.display='flex';
-  document.getElementById('minimap').style.display='none';
-  mtPlayer={x:CW/2-13,y:CH*0.72,vx:0,vy:0};
-  mtReady=false;particles.length=0;
-}
-function updateMountaintop(){
-  let mx=joyX,my=joyY;
-  if(keys['ArrowLeft']||keys['a'])mx=-1;if(keys['ArrowRight']||keys['d'])mx=1;
-  if(keys['ArrowUp']||keys['w'])my=-1;if(keys['ArrowDown']||keys['s'])my=1;
-  mtPlayer.vx+=mx*0.8;mtPlayer.vy+=my*0.8;mtPlayer.vx*=0.75;mtPlayer.vy*=0.75;
-  mtPlayer.x+=mtPlayer.vx;mtPlayer.y+=mtPlayer.vy;
-  mtPlayer.x=Math.max(20,Math.min(CW-40,mtPlayer.x));
-  mtPlayer.y=Math.max(CH*0.04,Math.min(CH*0.88,mtPlayer.y));
-  const dropX=CW/2,dropY=CH*0.2;
-  if(Math.hypot(mtPlayer.x+13-dropX,mtPlayer.y+18-dropY)<58){
-    if(!mtReady){mtReady=true;combo('TAP JUMP TO DROP IN! 🆙');}
-  } else mtReady=false;
-}
-function dropIn(){
-  run++;
-  if(run>50){
-    // GAME WON
-    state='gameover';
-    state='gameover';
-    showNameEntry(true);
-    return;
-  }
-  score+=100;updateHUD();
-  combo(`✅ RUN ${run-1} DONE! ▶ RUN ${run}/50`);
-  state='skiing';
-  setModeBar(`⛷️ RUN ${run}/50 — SKI DOWN!`,'#1e90d4');
-  document.getElementById('jumpBtn').style.display='flex';
-  document.getElementById('shootBtn').style.display='none';
-  document.getElementById('minimap').style.display='flex';
-  P.wx=WORLD_W/2;P.wy=0;P.vx=0;P.vy=2.5;P.jz=0;P.vjz=0;P.onGround=true;P.invincible=80;
-  P.trickAngle=0;P.trickSpin=0;P.trickCount=0;P.inAir=false;P._lastChunk=-99;
-  cam.x=P.wx-CW/2;cam.y=P.wy-PLAYER_SCREEN_Y();
-  snowballs.length=0;particles.length=0;playerBalls.length=0;
-  hillSeed=Math.floor(Math.random()*9999);
-  buildHill();
-  loadChunkIntoArrays();
-  initLiftRiders();
-  updateMinimap();
-}
-
-// ── Minimap ────────────────────────────────────────────
-function updateMinimap(){
-  const trackH=150;
-  const pct=Math.min(1,P.wy/HILL_LEN);
-  document.getElementById('mmFill').style.height=(pct*trackH)+'px';
-  document.getElementById('mmDot').style.bottom=((1-pct)*trackH-6)+'px';
-}
-function updateMinimapLift(){
-  const trackH=150;
-  const pct=Math.min(1,liftScrollY/HILL_LEN);
-  document.getElementById('mmFill').style.height=(pct*trackH)+'px';
-  document.getElementById('mmDot').style.bottom=(pct*trackH-6)+'px';
-}
-
-// ── Draw: world-to-screen ──────────────────────────────
 function wtx(wx){return wx-cam.x;}
 function wty(wy){return wy-cam.y;}
 
+function updateSkiing(){
+var mx=joyX,my=joyY;
+if(keys[‘ArrowLeft’]||keys[‘a’])mx=-1;if(keys[‘ArrowRight’]||keys[‘d’])mx=1;
+if(keys[‘ArrowDown’]||keys[‘s’])my=1;if(keys[‘ArrowUp’]||keys[‘w’])my=-0.5;
+var bvy=2.8+Math.min(4,P.wy/3000);
+P.vx+=mx*0.9;P.vx*=0.80;
+P.vy+=(bvy+my*2-P.vy)*0.07;P.vy=Math.max(0.2,Math.min(13,P.vy));
+if(!P.onGround){
+P.spinV*=0.88;P.spin+=P.spinV;
+P.jz+=P.vjz;P.vjz-=0.7;
+if(P.jz<=0){P.jz=0;P.vjz=0;P.onGround=true;P.inAir=false;P.trickN=0;}
+}
+P.wx+=P.vx;P.wy+=P.vy;
+P.wx=Math.max(10,Math.min(WORLD_W-10,P.wx));
+cam.x=P.wx-CW/2;cam.y=P.wy-PSY();
+var ck=Math.floor(P.wy/200);if(ck!==_lastChunk){_lastChunk=ck;loadNearby();}
+
+for(var ri=0;ri<liftRiders.length;ri++){
+var r=liftRiders[ri];
+if(P.wy>r.wy+50){r.wy=P.wy+200+Math.random()*500;r.st=5+Math.random()*10;}
+r.st–;
+if(r.st<=0){
+var diff=Math.min(1,(run-1)/49);
+r.st=Math.floor(192-diff*112)+Math.random()*Math.max(20,Math.floor(128-diff*68));
+spawnBall(r.wx,r.wy);
+}
+}
+for(var si=snowballs.length-1;si>=0;si–){
+var s=snowballs[si];s.wx+=s.vx;s.wy+=s.vy;
+if(s.wy<cam.y-CH*3||s.wy>cam.y+CH*3){snowballs.splice(si,1);continue;}
+if(P.invincible<=0&&P.jz<8&&Math.hypot(s.wx-P.wx,s.wy-P.wy)<s.r+13){
+snowballs.splice(si,1);lives–;P.invincible=110;updateHUD();combo(‘OUCH!’);
+sparks(P.wx,P.wy,’#b0d8ff’,8,‘world’);if(lives<=0){gameOver();return;}
+}
+}
+if(P.invincible>0)P.invincible–;
+for(var ti=0;ti<trees.length;ti++){
+var t=trees[ti];if(t.hit)continue;
+var cz=t.tier===0?2:t.tier===1?18:9999;
+if(P.jz>cz)continue;
+if(Math.abs(P.wx-t.wx)<t.sz*0.3&&Math.abs(P.wy-t.wy)<t.sz*0.35){
+t.hit=true;
+if(P.invincible<=0){lives–;P.invincible=120;updateHUD();combo(‘HIT TREE!’);sparks(P.wx,P.wy,’#4cb86b’,10,‘world’);P.vx*=-2;P.vy=-1;if(lives<=0){gameOver();return;}}
+}
+}
+for(var rpi=0;rpi<ramps.length;rpi++){
+var rp=ramps[rpi];
+if(rp.triggered){if(P.wy>rp.wy+rp.h+40)rp.triggered=false;continue;}
+if(P.wx>rp.wx-5&&P.wx<rp.wx+rp.w+5&&P.wy>rp.wy&&P.wy<rp.wy+rp.h+20&&P.onGround){
+rp.triggered=true;P.vjz=12;P.onGround=false;P.inAir=true;
+var bon=150+Math.floor(P.vy*20);score+=bon;updateHUD();combo(‘RAMP! +’+bon);sparks(P.wx,P.wy,’#fff’,12,‘world’);
+}
+}
+for(var pi=particles.length-1;pi>=0;pi–){var p=particles[pi];p.wx+=p.vx;p.wy+=p.vy;p.life–;if(p.life<=0)particles.splice(pi,1);}
+if(P.wy>=HILL_LEN){score+=200;updateHUD();combo(‘BOTTOM! +200’);enterBottom();}
+updateMM();
+}
+function spawnBall(wx,wy){var dx=P.wx-wx,dy=P.wy-wy,d=Math.sqrt(dx*dx+dy*dy)||1,sp=3+Math.random()*1.5;snowballs.push({wx:wx,wy:wy,vx:dx/d*sp,vy:dy/d*sp,r:9});}
+function sparks(wx,wy,col,n,mode){for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2,sp=1.5+Math.random()*3;particles.push({wx:wx,wy:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:3+Math.random()*4,col:col,life:30+Math.random()*20,mode:mode});}}
+
+function enterBottom(){
+state=‘bottom’;setMB(‘SKI TO A CHAIRLIFT!’,’#27ae60’);
+document.getElementById(‘shootBtn’).style.display=‘none’;
+document.getElementById(‘jumpBtn’).style.display=‘flex’;
+document.getElementById(‘minimap’).style.display=‘none’;
+bPlayer={x:CW/2-13,y:BFLY()-60,vx:0,vy:0};snowballs.length=0;particles.length=0;
+}
+function updateBottom(){
+var mx=joyX,my=joyY;
+if(keys[‘ArrowLeft’]||keys[‘a’])mx=-1;if(keys[‘ArrowRight’]||keys[‘d’])mx=1;
+if(keys[‘ArrowUp’]||keys[‘w’])my=-1;if(keys[‘ArrowDown’]||keys[‘s’])my=1;
+bPlayer.vx+=mx*0.8;bPlayer.vy+=my*0.8;bPlayer.vx*=0.75;bPlayer.vy*=0.75;
+bPlayer.x+=bPlayer.vx;bPlayer.y+=bPlayer.vy;
+bPlayer.x=Math.max(20,Math.min(CW-40,bPlayer.x));bPlayer.y=Math.max(CH*0.15,Math.min(CH*0.82,bPlayer.y));
+var ly=BFLY()-30;
+if(Math.hypot(bPlayer.x-LLX(),bPlayer.y-ly)<55){liftSide=‘left’;combo(‘BOARDING!’);state=‘boarding’;setTimeout(enterLiftUp,500);}
+if(Math.hypot(bPlayer.x-RLX(),bPlayer.y-ly)<55){liftSide=‘right’;combo(‘BOARDING!’);state=‘boarding’;setTimeout(enterLiftUp,500);}
+}
+
+function enterLiftUp(){
+state=‘lift_up’;liftScrollY=0;liftNpcs.length=0;playerBalls.length=0;particles.length=0;shootReload=0;
+aimX=CW/2;aimY=CH*0.4;
+setMB(‘RUN ‘+run+’ - RIDE UP & SHOOT!’,’#e03e3e’);
+document.getElementById(‘shootBtn’).style.display=‘flex’;
+document.getElementById(‘jumpBtn’).style.display=‘none’;
+document.getElementById(‘minimap’).style.display=‘flex’;
+for(var i=0;i<4;i++)spawnLN(-80-i*160);
+}
+function spawnLN(y){var c=NPC_C[Math.floor(Math.random()*5)];liftNpcs.push({x:CW*0.15+Math.random()*CW*0.70,y:y!==undefined?y:(-60-Math.random()*80),vx:(Math.random()-0.5)*1.5,vy:1.96+Math.random()*0.98,c:c});}
+function updateLiftUp(){
+liftScrollY+=5.0;if(shootReload>0)shootReload–;
+var asp=7,ax=joyX,ay=joyY;
+if(keys[‘ArrowLeft’]||keys[‘a’])ax=-1;if(keys[‘ArrowRight’]||keys[‘d’])ax=1;
+if(keys[‘ArrowUp’]||keys[‘w’])ay=-1;if(keys[‘ArrowDown’]||keys[‘s’])ay=1;
+aimX=Math.max(20,Math.min(CW-20,aimX+ax*asp));aimY=Math.max(20,Math.min(CH-80,aimY+ay*asp));
+if(liftNpcs.length<8&&liftScrollY%60<5)spawnLN();
+for(var ni=liftNpcs.length-1;ni>=0;ni–){
+var n=liftNpcs[ni];n.x+=n.vx;n.y+=n.vy;n.vx+=(Math.random()-0.5)*0.1;n.vx=Math.max(-3,Math.min(3,n.vx));
+if(n.x<0)n.vx=Math.abs(n.vx);if(n.x>CW-30)n.vx=-Math.abs(n.vx);if(n.y>CH+80)liftNpcs.splice(ni,1);
+}
+for(var bi=playerBalls.length-1;bi>=0;bi–){
+var sb=playerBalls[bi];sb.x+=sb.vx;sb.y+=sb.vy;
+if(sb.x<-30||sb.x>CW+30||sb.y<-30||sb.y>CH+30){playerBalls.splice(bi,1);continue;}
+var hit=false;
+for(var nj=liftNpcs.length-1;nj>=0;nj–){
+var nn=liftNpcs[nj];
+if(sb.x>nn.x-4&&sb.x<nn.x+32&&sb.y>nn.y-4&&sb.y<nn.y+44){score+=50;updateHUD();combo(’+50 HIT!’);sparks(nn.x+14,nn.y+14,’#fff’,8,‘screen’);liftNpcs.splice(nj,1);hit=true;break;}
+}
+if(hit)playerBalls.splice(bi,1);
+}
+for(var pli=particles.length-1;pli>=0;pli–){var pl=particles[pli];pl.wx+=pl.vx;pl.wy+=pl.vy;pl.life–;if(pl.life<=0)particles.splice(pli,1);}
+updateMML();
+if(liftScrollY>=HILL_LEN)enterMountaintop();
+}
+
+function enterMountaintop(){
+state=‘mountaintop’;setMB(‘SKI TO THE DROP-IN!’,’#9b59b6’);
+document.getElementById(‘shootBtn’).style.display=‘none’;
+document.getElementById(‘jumpBtn’).style.display=‘flex’;
+document.getElementById(‘minimap’).style.display=‘none’;
+mtP.x=CW/2-13;mtP.y=CH*0.7;mtP.vx=0;mtP.vy=0;mtReady=false;particles.length=0;
+}
+function updateMountaintop(){
+var mx=joyX,my=joyY;
+if(keys[‘ArrowLeft’]||keys[‘a’])mx=-1;if(keys[‘ArrowRight’]||keys[‘d’])mx=1;
+if(keys[‘ArrowUp’]||keys[‘w’])my=-1;if(keys[‘ArrowDown’]||keys[‘s’])my=1;
+mtP.vx+=mx*0.8;mtP.vy+=my*0.8;mtP.vx*=0.75;mtP.vy*=0.75;
+mtP.x+=mtP.vx;mtP.y+=mtP.vy;
+mtP.x=Math.max(20,Math.min(CW-40,mtP.x));mtP.y=Math.max(CH*0.05,Math.min(CH*0.88,mtP.y));
+mtReady=Math.hypot(mtP.x+13-CW/2,mtP.y+18-CH*0.2)<58;
+if(mtReady)combo(‘TAP JUMP TO DROP IN!’);
+}
+function dropIn(){
+run++;
+if(run>50){showNameEntry(true);return;}
+score+=100;updateHUD();combo(‘RUN ‘+(run-1)+’ DONE! NOW RUN ‘+run+’/50’);
+state=‘skiing’;setMB(‘RUN ‘+run+’/50 - SKI DOWN!’,’#1e90d4’);
+document.getElementById(‘jumpBtn’).style.display=‘flex’;
+document.getElementById(‘shootBtn’).style.display=‘none’;
+document.getElementById(‘minimap’).style.display=‘flex’;
+P.wx=WORLD_W/2;P.wy=0;P.vx=0;P.vy=2.5;P.jz=0;P.vjz=0;P.onGround=true;P.invincible=80;
+P.spin=0;P.spinV=0;P.trickN=0;P.inAir=false;
+cam.x=P.wx-CW/2;cam.y=P.wy-PSY();
+snowballs.length=0;particles.length=0;playerBalls.length=0;
+_lastChunk=-99;hillSeed=Math.floor(Math.random()*9999);buildHill();loadNearby();initLiftRiders();updateMM();
+}
+
+function updateMM(){
+var t=150,p=Math.min(1,P.wy/HILL_LEN);
+document.getElementById(‘mmFill’).style.height=(p*t)+‘px’;
+document.getElementById(‘mmDot’).style.bottom=((1-p)*t-6)+‘px’;
+}
+function updateMML(){
+var t=150,p=Math.min(1,liftScrollY/HILL_LEN);
+document.getElementById(‘mmFill’).style.height=(p*t)+‘px’;
+document.getElementById(‘mmDot’).style.bottom=(p*t)+‘px’;
+}
+
 function drawSlope(){
-  const sky=ctx.createLinearGradient(0,0,0,CH*0.14);
-  sky.addColorStop(0,'#3a7fbe');sky.addColorStop(1,'#9ad0f0');
-  ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH*0.14);
-  const sn=ctx.createLinearGradient(0,CH*0.12,0,CH);
-  sn.addColorStop(0,'#e2f4fc');sn.addColorStop(0.5,'#eef8ff');sn.addColorStop(1,'#cce6f4');
-  ctx.fillStyle=sn;ctx.fillRect(0,CH*0.12,CW,CH);
-  ctx.strokeStyle='rgba(170,215,240,0.38)';ctx.lineWidth=2;
-  for(const off of[-8,8]){ctx.beginPath();ctx.moveTo(CW/2+off,0);ctx.lineTo(CW/2+off,CH);ctx.stroke();}
+var sky=ctx.createLinearGradient(0,0,0,CH*0.14);
+sky.addColorStop(0,’#3a7fbe’);sky.addColorStop(1,’#9ad0f0’);
+ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH*0.14);
+var sn=ctx.createLinearGradient(0,CH*0.12,0,CH);
+sn.addColorStop(0,’#e2f4fc’);sn.addColorStop(0.5,’#eef8ff’);sn.addColorStop(1,’#cce6f4’);
+ctx.fillStyle=sn;ctx.fillRect(0,CH*0.12,CW,CH);
+ctx.strokeStyle=‘rgba(170,215,240,0.38)’;ctx.lineWidth=2;
+var offs=[-8,8];for(var i=0;i<offs.length;i++){ctx.beginPath();ctx.moveTo(CW/2+offs[i],0);ctx.lineTo(CW/2+offs[i],CH);ctx.stroke();}
 }
-
 function drawLifts(){
-  const lsx=wtx(LEFT_LIFT_WX),rsx=wtx(RIGHT_LIFT_WX);
-  // Cables
-  ctx.strokeStyle='rgba(80,80,95,0.55)';ctx.lineWidth=3;
-  ctx.beginPath();ctx.moveTo(lsx,0);ctx.lineTo(lsx,CH);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(rsx,0);ctx.lineTo(rsx,CH);ctx.stroke();
-  // Tower blocks at regular world-Y intervals
-  for(let wy=Math.floor(cam.y/160)*160;wy<cam.y+CH+160;wy+=160){
-    const sy=wty(wy);
-    block(lsx-7,sy,14,28,'#b0b0b0');
-    block(rsx-7,sy,14,28,'#b0b0b0');
-    // Horizontal arm
-    ctx.fillStyle='#999';ctx.fillRect(lsx-20,sy+2,40,4);
-    ctx.fillStyle='#999';ctx.fillRect(rsx-20,sy+2,40,4);
-  }
-  // Riders on left and right cables
-  for(const r of liftRiders){
-    const sx=wtx(r.wx),sy=wty(r.wy);
-    if(sy<-100||sy>CH+100)continue;
-    // Cable connector line up to cable
-    ctx.strokeStyle='rgba(70,70,80,0.6)';ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(sx,sy-18);ctx.lineTo(sx,sy-55);ctx.stroke();
-    // Chair seat — clean simple block
-    block(sx-18,sy,38,10,'#c0392b');
-    // Chair back supports
-    ctx.fillStyle='#922b21';ctx.fillRect(sx-18,sy-16,4,18);ctx.fillRect(sx+14,sy-16,4,18);
-    // Character sitting on chair
-    drawChar(sx-9,sy-54,0.78,r.c[0],r.c[1],r.c[2],false,false,0);
-  }
+var lsx=wtx(LL_WX),rsx=wtx(RL_WX);
+ctx.strokeStyle=‘rgba(80,80,95,0.55)’;ctx.lineWidth=3;
+ctx.beginPath();ctx.moveTo(lsx,0);ctx.lineTo(lsx,CH);ctx.stroke();
+ctx.beginPath();ctx.moveTo(rsx,0);ctx.lineTo(rsx,CH);ctx.stroke();
+for(var wy=Math.floor(cam.y/160)*160;wy<cam.y+CH+160;wy+=160){
+var sy=wty(wy);block(lsx-7,sy,14,28,’#b0b0b0’);block(rsx-7,sy,14,28,’#b0b0b0’);
 }
-
+for(var ri=0;ri<liftRiders.length;ri++){
+var r=liftRiders[ri];var sx=wtx(r.wx),sy2=wty(r.wy);
+if(sy2<-100||sy2>CH+100)continue;
+ctx.strokeStyle=‘rgba(70,70,80,0.6)’;ctx.lineWidth=2;
+ctx.beginPath();ctx.moveTo(sx,sy2-18);ctx.lineTo(sx,sy2-55);ctx.stroke();
+block(sx-18,sy2,38,10,’#c0392b’);
+ctx.fillStyle=’#922b21’;ctx.fillRect(sx-18,sy2-16,4,18);ctx.fillRect(sx+14,sy2-16,4,18);
+drawChar(sx-9,sy2-54,0.78,r.c[0],r.c[1],r.c[2],false,false,0);
+}
+}
 function drawSkiWorld(){
-  for(const r of ramps){
-    const sx=wtx(r.wx),sy=wty(r.wy);
-    if(sy<-60||sy>CH+60)continue;
-    drawRamp(sx,sy,r.w,r.h);
-  }
-  for(const t of trees){
-    const sx=wtx(t.wx),sy=wty(t.wy);
-    if(sy<-80||sy>CH+80)continue;
-    drawTree(sx,sy,t.sz,t.tier);
-    if(t.hit){ctx.fillStyle='rgba(255,100,100,0.3)';ctx.beginPath();ctx.arc(sx,sy+t.sz*0.3,t.sz*0.5,0,Math.PI*2);ctx.fill();}
-  }
-  for(const s of snowballs){
-    const sx=wtx(s.wx),sy=wty(s.wy);
-    if(sy<-20||sy>CH+20)continue;
-    drawBall(sx,sy,s.r,'#d8f0ff');
-  }
-  for(const p of particles){
-    if(p.mode!=='world')continue;
-    ctx.globalAlpha=p.life/50;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(wtx(p.wx),wty(p.wy),p.r,0,Math.PI*2);ctx.fill();
-  }
-  ctx.globalAlpha=1;
+for(var ri=0;ri<ramps.length;ri++){var r=ramps[ri];var sx=wtx(r.wx),sy=wty(r.wy);if(sy>-60&&sy<CH+60)drawRamp(sx,sy,r.w,r.h);}
+for(var ti=0;ti<trees.length;ti++){
+var t=trees[ti];var tsx=wtx(t.wx),tsy=wty(t.wy);
+if(tsy<-80||tsy>CH+80)continue;
+drawTree(tsx,tsy,t.sz,t.tier);
+if(t.hit){ctx.fillStyle=‘rgba(255,100,100,0.3)’;ctx.beginPath();ctx.arc(tsx,tsy+t.sz*0.3,t.sz*0.5,0,Math.PI*2);ctx.fill();}
 }
-
+for(var si=0;si<snowballs.length;si++){var s=snowballs[si];var ssx=wtx(s.wx),ssy=wty(s.wy);if(ssy>-20&&ssy<CH+20)drawBall(ssx,ssy,s.r,’#d8f0ff’);}
+for(var pi=0;pi<particles.length;pi++){
+var p=particles[pi];if(p.mode!==‘world’)continue;
+ctx.globalAlpha=p.life/50;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(wtx(p.wx),wty(p.wy),p.r,0,Math.PI*2);ctx.fill();
+}
+ctx.globalAlpha=1;
+}
 function drawPlayer(){
-  if(P.invincible>0&&Math.floor(P.invincible/7)%2===1)return;
-  const sx=CW/2-P.w/2,sy=PLAYER_SCREEN_Y()-P.h/2-P.jz;
-  if(P.jz>1){
-    ctx.fillStyle='rgba(0,0,0,0.13)';
-    ctx.beginPath();ctx.ellipse(CW/2,PLAYER_SCREEN_Y()+12,13+P.jz*0.25,4,0,0,Math.PI*2);ctx.fill();
-  }
-  drawChar(sx,sy,1,'#e03e3e','#f5c6a0','#1a3a8a',P.vx>0.5,P.jz>2,P.trickAngle);
+if(P.invincible>0&&Math.floor(P.invincible/7)%2===1)return;
+var sx=CW/2-P.w/2,sy=PSY()-P.h/2-P.jz;
+if(P.jz>1){ctx.fillStyle=‘rgba(0,0,0,0.13)’;ctx.beginPath();ctx.ellipse(CW/2,PSY()+12,13+P.jz*0.25,4,0,0,Math.PI*2);ctx.fill();}
+drawChar(sx,sy,1,’#e03e3e’,’#f5c6a0’,’#1a3a8a’,P.vx>0.5,P.jz>4,P.spin);
 }
-
-// ── Draw: bottom scene ─────────────────────────────────
 function drawBottom(){
-  ctx.fillStyle='#4a9ad4';ctx.fillRect(0,0,CW,CH*0.22);
-  ctx.fillStyle='#c8e0f0';ctx.fillRect(0,CH*0.18,CW,CH*0.42);
-  const floor=ctx.createLinearGradient(0,BOT_FLOOR_Y()-10,0,CH);
-  floor.addColorStop(0,'#ddf0fc');floor.addColorStop(1,'#b8d8ee');
-  ctx.fillStyle=floor;ctx.fillRect(0,BOT_FLOOR_Y()-10,CW,CH);
-  // Lodge
-  const lx=CW*0.3,ly=CH*0.26;
-  block(lx,ly+75,CW*0.4,CH*0.2,'#8B6040');
-  block(lx-18,ly,CW*0.4+36,80,'#c0392b');
-  ctx.fillStyle='#f5c211';ctx.font='bold 14px Fredoka One,sans-serif';ctx.textAlign='center';
-  ctx.fillText('⛷️  SKI LODGE',CW/2,ly+CH*0.1);ctx.textAlign='left';
-  block(lx+18,ly+90,32,28,'#a0d8ef');block(lx+CW*0.4-52,ly+90,32,28,'#a0d8ef');
-  // Lift stations
-  const llx=LIFT_L_SX(),lrx=LIFT_R_SX(),liftY=BOT_FLOOR_Y()-35;
-  // Left
-  block(llx-22,liftY-38,44,56,'#1e6ab0');
-  block(llx-6,liftY-75,12,40,'#999');
-  ctx.strokeStyle='rgba(70,70,80,0.65)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(llx,liftY-75);ctx.lineTo(llx,0);ctx.stroke();
-  ctx.fillStyle='#fff';ctx.font='10px Fredoka One,sans-serif';ctx.textAlign='center';ctx.fillText('LEFT LIFT',llx,liftY+24);
-  // Right
-  block(lrx-22,liftY-38,44,56,'#1e6ab0');
-  block(lrx-6,liftY-75,12,40,'#999');
-  ctx.strokeStyle='rgba(70,70,80,0.65)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(lrx,liftY-75);ctx.lineTo(lrx,0);ctx.stroke();
-  ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText('RIGHT LIFT',lrx,liftY+24);ctx.textAlign='left';
-  // Arrow hints
-  ctx.font='16px sans-serif';ctx.textAlign='center';
-  ctx.fillText('👈',llx+40,liftY-8);ctx.fillText('👉',lrx-40,liftY-8);ctx.textAlign='left';
-  // Player
-  drawChar(bPlayer.x,bPlayer.y,1,'#e03e3e','#f5c6a0','#1a3a8a',bPlayer.vx>0.3,false,0);
+ctx.fillStyle=’#4a9ad4’;ctx.fillRect(0,0,CW,CH*0.25);
+ctx.fillStyle=’#c8e0f0’;ctx.fillRect(0,CH*0.2,CW,CH*0.45);
+var fl=ctx.createLinearGradient(0,BFLY()-10,0,CH);fl.addColorStop(0,’#ddf0fc’);fl.addColorStop(1,’#b8d8ee’);
+ctx.fillStyle=fl;ctx.fillRect(0,BFLY()-10,CW,CH);
+var lx=CW*0.3,ly=CH*0.28;
+block(lx,ly+80,CW*0.4,CH*0.22,’#8B6040’);block(lx-20,ly,CW*0.4+40,85,’#c0392b’);
+block(lx+20,ly+100,35,28,’#a0d8ef’);block(lx+CW*0.4-55,ly+100,35,28,’#a0d8ef’);
+ctx.fillStyle=’#f5c211’;ctx.font=‘bold 14px Fredoka One,sans-serif’;ctx.textAlign=‘center’;ctx.fillText(‘SKI LODGE’,CW/2,ly+CH*0.11);
+var llx=LLX(),lrx=RLX(),lfy=BFLY()-30;
+block(llx-25,lfy-40,50,55,’#1e90d4’);block(llx-8,lfy-80,16,42,’#aaa’);
+ctx.strokeStyle=‘rgba(80,80,90,0.7)’;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(llx,lfy-80);ctx.lineTo(llx,0);ctx.stroke();
+ctx.fillStyle=’#fff’;ctx.font=‘10px Fredoka One,sans-serif’;ctx.fillText(‘LEFT LIFT’,llx,lfy+28);
+block(lrx-25,lfy-40,50,55,’#1e90d4’);block(lrx-8,lfy-80,16,42,’#aaa’);
+ctx.strokeStyle=‘rgba(80,80,90,0.7)’;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lrx,lfy-80);ctx.lineTo(lrx,0);ctx.stroke();
+ctx.fillStyle=’#fff’;ctx.fillText(‘RIGHT LIFT’,lrx,lfy+28);ctx.textAlign=‘left’;
+ctx.font=‘18px sans-serif’;ctx.textAlign=‘center’;ctx.fillText(’<<’,llx+44,lfy-8);ctx.fillText(’>>’,lrx-44,lfy-8);ctx.textAlign=‘left’;
+drawChar(bPlayer.x,bPlayer.y,1,’#e03e3e’,’#f5c6a0’,’#1a3a8a’,bPlayer.vx>0.3,false,0);
 }
-
-// ── Draw: lift up — SAME HILL, scrolling upward ────────
 function drawLiftUpScene(){
-  // Use the SAME slope background
-  const sky=ctx.createLinearGradient(0,0,0,CH*0.14);
-  sky.addColorStop(0,'#3a7fbe');sky.addColorStop(1,'#9ad0f0');
-  ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH*0.14);
-  const sn=ctx.createLinearGradient(0,CH*0.12,0,CH);
-  sn.addColorStop(0,'#e2f4fc');sn.addColorStop(0.5,'#eef8ff');sn.addColorStop(1,'#cce6f4');
-  ctx.fillStyle=sn;ctx.fillRect(0,CH*0.12,CW,CH);
-  ctx.strokeStyle='rgba(170,215,240,0.38)';ctx.lineWidth=2;
-  for(const off of[-8,8]){ctx.beginPath();ctx.moveTo(CW/2+off,0);ctx.lineTo(CW/2+off,CH);ctx.stroke();}
-
-  // The world Y we're looking at (going from HILL_LEN down to 0)
-  const viewWY=HILL_LEN-liftScrollY;
-  // Camera for lift view — sitting on liftSide cable, looking at hill
-  const liftCam={x:liftSide==='left'?LEFT_LIFT_WX-CW/2:RIGHT_LIFT_WX-CW/2,y:viewWY-CH*0.42};
-  function lwtx(wx){return wx-liftCam.x;}
-  function lwty(wy){return wy-liftCam.y;}
-
-  // Draw world trees and ramps from seeded hill at this Y position
-  const {vis_trees,vis_ramps}=getVisibleForLift(viewWY);
-  for(const r of vis_ramps){
-    const sx=lwtx(r.wx),sy=lwty(r.wy);
-    if(sy<-60||sy>CH+60)continue;
-    drawRamp(sx,sy,r.w,r.h);
-  }
-  for(const t of vis_trees){
-    const sx=lwtx(t.wx),sy=lwty(t.wy);
-    if(sy<-80||sy>CH+80)continue;
-    drawTree(sx,sy,t.sz,t.tier);
-  }
-
-  // Cable on chosen side (center of screen)
-  const cableScreenX=liftSide==='left'?CW*0.25:CW*0.75;
-  ctx.strokeStyle='rgba(80,80,90,0.65)';ctx.lineWidth=3;
-  ctx.beginPath();ctx.moveTo(cableScreenX,0);ctx.lineTo(cableScreenX,CH);ctx.stroke();
-  // Scrolling towers
-  for(let ty=-((liftScrollY*0.4)%160);ty<CH+20;ty+=160){
-    block(cableScreenX-7,ty,14,28,'#b0b0b0');
-    ctx.fillStyle='#999';ctx.fillRect(cableScreenX-22,ty+2,44,4);
-  }
-
-  // Player chair — FIXED at bottom portion of screen
-  const chairY=CH*0.72;
-  ctx.strokeStyle='rgba(70,70,80,0.6)';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(cableScreenX,chairY-18);ctx.lineTo(cableScreenX,chairY-70);ctx.stroke();
-  block(cableScreenX-18,chairY,38,10,'#c0392b');
-  ctx.fillStyle='#922b21';ctx.fillRect(cableScreenX-18,chairY-16,4,18);ctx.fillRect(cableScreenX+14,chairY-16,4,18);
-  drawChar(cableScreenX-9,chairY-56,0.85,'#e03e3e','#f5c6a0','#1a3a8a',false,false,0);
-
-  // NPC skiers coming DOWN the hill (toward camera)
-  for(const n of liftNpcs)drawChar(n.x,n.y,1,n.c[0],n.c[1],n.c[2],n.vx>0,false,0);
-
-  // Player snowballs
-  for(const s of playerBalls)drawBall(s.x,s.y,s.r,'#b0e8ff');
-
-  // Particles
-  for(const p of particles){
-    ctx.globalAlpha=p.life/50;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.wx,p.wy,p.r,0,Math.PI*2);ctx.fill();
-  }
-  ctx.globalAlpha=1;
-
-  // Manual aim crosshair — joystick controlled
-  ctx.strokeStyle='rgba(255,60,60,0.9)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.arc(aimX,aimY,22,0,Math.PI*2);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(aimX-30,aimY);ctx.lineTo(aimX+30,aimY);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(aimX,aimY-30);ctx.lineTo(aimX,aimY+30);ctx.stroke();
-  // Dotted line from player to aim
-  const shootOriginX=cableScreenX, shootOriginY=chairY-52;
-  ctx.strokeStyle='rgba(255,80,80,0.3)';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);
-  ctx.beginPath();ctx.moveTo(shootOriginX,shootOriginY);ctx.lineTo(aimX,aimY);ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Progress bar
-  const bw=CW*0.55,prog=Math.min(1,liftScrollY/HILL_LEN);
-  block(CW/2-bw/2,CH-28,bw,14,'#1e6090');
-  block(CW/2-bw/2,CH-28,bw*prog,14,'#1e90d4');
-  ctx.fillStyle='rgba(255,255,255,0.65)';ctx.font='11px Fredoka One,sans-serif';ctx.textAlign='center';ctx.fillText('RIDING UP TO TOP',CW/2,CH-16);ctx.textAlign='left';
+var bg=ctx.createLinearGradient(0,0,0,CH);bg.addColorStop(0,’#b0d8f0’);bg.addColorStop(1,’#e8f5fe’);
+ctx.fillStyle=bg;ctx.fillRect(0,0,CW,CH);
+ctx.strokeStyle=‘rgba(150,200,235,0.35)’;ctx.lineWidth=3;
+for(var i=0;i<7;i++){ctx.beginPath();ctx.moveTo(CW*0.06+i*CW*0.15,0);ctx.lineTo(CW*0.04+i*CW*0.15,CH);ctx.stroke();}
+var cx=liftSide===‘left’?CW*0.25:CW*0.75;
+ctx.strokeStyle=‘rgba(80,80,90,0.65)’;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,CH);ctx.stroke();
+for(var ty=0-((liftScrollY*0.5)%160);ty<CH+20;ty+=160)block(cx-8,ty,16,32,’#bbbbbb’);
+var px=cx-16,py=CH*0.72;
+block(px-4,py,56,12,’#c0392b’);block(px-4,py-18,5,18,’#c0392b’);block(px+47,py-18,5,18,’#c0392b’);
+ctx.strokeStyle=‘rgba(70,70,80,0.6)’;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx,py-20);ctx.lineTo(cx,py-90);ctx.stroke();
+drawChar(cx-12,py-56,0.85,’#e03e3e’,’#f5c6a0’,’#1a3a8a’,false,false,0);
+for(var ni=0;ni<liftNpcs.length;ni++){var n=liftNpcs[ni];drawChar(n.x,n.y,1,n.c[0],n.c[1],n.c[2],n.vx>0,false,0);}
+for(var bi=0;bi<playerBalls.length;bi++){var b=playerBalls[bi];drawBall(b.x,b.y,b.r,’#b0e8ff’);}
+for(var pi=0;pi<particles.length;pi++){var p=particles[pi];ctx.globalAlpha=p.life/50;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.wx,p.wy,p.r,0,Math.PI*2);ctx.fill();}
+ctx.globalAlpha=1;
+var rl=shootReload>0;
+ctx.strokeStyle=rl?‘rgba(180,180,180,0.5)’:‘rgba(255,60,60,0.9)’;ctx.lineWidth=2.5;
+ctx.beginPath();ctx.arc(aimX,aimY,22,0,Math.PI*2);ctx.stroke();
+ctx.beginPath();ctx.moveTo(aimX-30,aimY);ctx.lineTo(aimX+30,aimY);ctx.stroke();
+ctx.beginPath();ctx.moveTo(aimX,aimY-30);ctx.lineTo(aimX,aimY+30);ctx.stroke();
+ctx.strokeStyle=‘rgba(255,80,80,0.25)’;ctx.setLineDash([5,4]);
+ctx.beginPath();ctx.moveTo(cx,py-52);ctx.lineTo(aimX,aimY);ctx.stroke();ctx.setLineDash([]);
+var bw=CW*0.55,prog=Math.min(1,liftScrollY/HILL_LEN);
+block(CW/2-bw/2,CH-28,bw,14,’#1e6090’);block(CW/2-bw/2,CH-28,bw*prog,14,’#1e90d4’);
+ctx.fillStyle=‘rgba(255,255,255,0.65)’;ctx.font=‘11px Fredoka One,sans-serif’;ctx.textAlign=‘center’;ctx.fillText(‘RIDING UP TO TOP’,CW/2,CH-16);ctx.textAlign=‘left’;
 }
-
-// ── Draw: mountaintop ──────────────────────────────────
 function drawMountaintop(){
-  const sky=ctx.createLinearGradient(0,0,0,CH*0.32);
-  sky.addColorStop(0,'#1a3a60');sky.addColorStop(1,'#5090c0');
-  ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH*0.32);
-  ctx.fillStyle='#ddf0fc';ctx.fillRect(0,CH*0.28,CW,CH);
-  ctx.fillStyle='#b0cce0';
-  for(let i=0;i<5;i++){
-    const px=i*CW*0.28-CW*0.12;
-    ctx.beginPath();ctx.moveTo(px,CH*0.32);ctx.lineTo(px+CW*0.19,CH*0.06);ctx.lineTo(px+CW*0.38,CH*0.32);ctx.closePath();ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,0.55)';
-    ctx.beginPath();ctx.moveTo(px+CW*0.14,CH*0.14);ctx.lineTo(px+CW*0.19,CH*0.06);ctx.lineTo(px+CW*0.24,CH*0.14);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#b0cce0';
-  }
-  // Lift top infrastructure
-  block(CW*0.08-8,CH*0.28,16,50,'#a0a0a0');block(CW*0.92-8,CH*0.28,16,50,'#a0a0a0');
-  ctx.strokeStyle='rgba(70,70,80,0.55)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(CW*0.08,CH*0.28);ctx.lineTo(CW*0.08,0);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(CW*0.92,CH*0.28);ctx.lineTo(CW*0.92,0);ctx.stroke();
-  block(CW*0.08-18,CH*0.23,40,10,'#c0392b');block(CW*0.92-18,CH*0.23,40,10,'#c0392b');
-  // Trees on plateau
-  drawTree(CW*0.18,CH*0.44,30,0);drawTree(CW*0.82,CH*0.44,28,0);drawTree(CW*0.14,CH*0.63,25,0);drawTree(CW*0.86,CH*0.61,30,0);
-  // Drop-in zone
-  const dropX=CW/2,dropY=CH*0.2;
-  const pulse=0.65+0.35*Math.sin(Date.now()/280);
-  ctx.strokeStyle=`rgba(245,194,17,${pulse})`;ctx.lineWidth=4;
-  ctx.beginPath();ctx.arc(dropX,dropY,44,0,Math.PI*2);ctx.stroke();
-  ctx.strokeStyle=`rgba(245,194,17,${pulse*0.6})`;ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(dropX,dropY,32,0,Math.PI*2);ctx.stroke();
-  block(dropX-22,dropY-7,44,14,'#f5c211');
-  ctx.fillStyle='#1a1a2e';ctx.font='bold 10px Fredoka One,sans-serif';ctx.textAlign='center';ctx.fillText('DROP IN',dropX,dropY+5);ctx.textAlign='left';
-  drawChar(mtPlayer.x,mtPlayer.y,1,'#e03e3e','#f5c6a0','#1a3a8a',mtPlayer.vx>0.3,false,0);
-  if(mtReady){
-    ctx.fillStyle='rgba(245,194,17,0.92)';ctx.font='bold 17px Fredoka One,sans-serif';ctx.textAlign='center';
-    ctx.fillText('TAP JUMP TO DROP IN!',CW/2,CH*0.52);ctx.textAlign='left';
-  }
+var sky=ctx.createLinearGradient(0,0,0,CH*0.32);sky.addColorStop(0,’#1a3a60’);sky.addColorStop(1,’#5090c0’);
+ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH*0.32);ctx.fillStyle=’#ddf0fc’;ctx.fillRect(0,CH*0.28,CW,CH);
+ctx.fillStyle=’#b0cce0’;
+for(var i=0;i<5;i++){
+var mpx=i*CW*0.28-CW*0.12;
+ctx.beginPath();ctx.moveTo(mpx,CH*0.32);ctx.lineTo(mpx+CW*0.19,CH*0.06);ctx.lineTo(mpx+CW*0.38,CH*0.32);ctx.closePath();ctx.fill();
+ctx.fillStyle=‘rgba(255,255,255,0.55)’;
+ctx.beginPath();ctx.moveTo(mpx+CW*0.14,CH*0.14);ctx.lineTo(mpx+CW*0.19,CH*0.06);ctx.lineTo(mpx+CW*0.24,CH*0.14);ctx.closePath();ctx.fill();
+ctx.fillStyle=’#b0cce0’;
 }
-
-// ── Main draw ──────────────────────────────────────────
+block(CW*0.08-8,CH*0.28,16,50,’#a0a0a0’);block(CW*0.92-8,CH*0.28,16,50,’#a0a0a0’);
+ctx.strokeStyle=‘rgba(70,70,80,0.55)’;ctx.lineWidth=2.5;
+ctx.beginPath();ctx.moveTo(CW*0.08,CH*0.28);ctx.lineTo(CW*0.08,0);ctx.stroke();
+ctx.beginPath();ctx.moveTo(CW*0.92,CH*0.28);ctx.lineTo(CW*0.92,0);ctx.stroke();
+block(CW*0.08-20,CH*0.22,40,10,’#c0392b’);block(CW*0.92-20,CH*0.22,40,10,’#c0392b’);
+drawTree(CW*0.18,CH*0.44,32,0);drawTree(CW*0.82,CH*0.44,28,0);drawTree(CW*0.12,CH*0.62,36,1);drawTree(CW*0.88,CH*0.58,30,1);
+var ddx=CW/2,ddy=CH*0.2,pulse=0.7+0.3*Math.sin(Date.now()/300);
+ctx.strokeStyle=‘rgba(245,194,17,’+pulse+’)’;ctx.lineWidth=3;
+ctx.beginPath();ctx.arc(ddx,ddy,58,0,Math.PI*2);ctx.stroke();
+ctx.beginPath();ctx.arc(ddx,ddy,40,0,Math.PI*2);ctx.stroke();
+block(ddx-24,ddy-7,48,14,’#f5c211’);
+ctx.fillStyle=’#1a1a2e’;ctx.font=‘bold 10px Fredoka One,sans-serif’;ctx.textAlign=‘center’;ctx.fillText(‘DROP IN’,ddx,ddy+5);ctx.textAlign=‘left’;
+if(mtReady){ctx.fillStyle=‘rgba(245,194,17,0.95)’;ctx.font=‘bold 20px Fredoka One,sans-serif’;ctx.textAlign=‘center’;ctx.fillText(‘TAP JUMP TO DROP IN!’,CW/2,CH*0.52);ctx.textAlign=‘left’;}
+drawChar(mtP.x,mtP.y,1,’#e03e3e’,’#f5c6a0’,’#1a3a8a’,mtP.vx>0.3,false,0);
+}
+function drawMenuBg(){
+var sky=ctx.createLinearGradient(0,0,0,CH);sky.addColorStop(0,’#0d1b3e’);sky.addColorStop(0.6,’#1a4a7a’);sky.addColorStop(1,’#2a7fbf’);
+ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH);
+ctx.fillStyle=’#d8eef8’;ctx.fillRect(0,CH*0.72,CW,CH);
+var mts=[[0,0.72,0.25,0.25],[0.2,0.72,0.35,0.18],[0.5,0.72,0.3,0.22],[0.72,0.72,0.38,0.2],[0.88,0.72,0.25,0.16]];
+ctx.fillStyle=’#1a3a5c’;
+for(var i=0;i<mts.length;i++){var m=mts[i];ctx.beginPath();ctx.moveTo(CW*m[0],CH*m[1]);ctx.lineTo(CW*(m[0]+m[2]/2),CH*(m[1]-m[3]));ctx.lineTo(CW*(m[0]+m[2]),CH*m[1]);ctx.closePath();ctx.fill();}
+ctx.fillStyle=‘rgba(220,240,255,0.65)’;
+for(var j=0;j<mts.length;j++){var mm=mts[j];var tip=CH*(mm[1]-mm[3]),mx=CW*(mm[0]+mm[2]/2);ctx.beginPath();ctx.moveTo(mx,tip);ctx.lineTo(mx+CW*mm[2]*0.18,tip+CH*mm[3]*0.35);ctx.lineTo(mx-CW*mm[2]*0.18,tip+CH*mm[3]*0.35);ctx.closePath();ctx.fill();}
+}
 function draw(){
-  ctx.clearRect(0,0,CW,CH);
-  if(state==='skiing'){drawSlope();drawLifts();drawSkiWorld();drawPlayer();}
-  else if(state==='bottom'||state==='boarding'){drawBottom();}
-  else if(state==='lift_up'){drawLiftUpScene();}
-  else if(state==='mountaintop'){drawMountaintop();}
-  else{
-    // menu / gameover — draw a snowy mountain background behind the overlay
-    const sky=ctx.createLinearGradient(0,0,0,CH);
-    sky.addColorStop(0,'#0d1b3e');sky.addColorStop(0.6,'#1a4a7a');sky.addColorStop(1,'#2a7fbf');
-    ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH);
-    // snow ground
-    ctx.fillStyle='#d8eef8';ctx.fillRect(0,CH*0.72,CW,CH);
-    // mountains
-    ctx.fillStyle='#1a3a5c';
-    [[0,0.72,0.25,0.25],[0.2,0.72,0.35,0.18],[0.5,0.72,0.3,0.22],[0.72,0.72,0.38,0.2],[0.88,0.72,0.25,0.16]].forEach(([px,py,pw,ph])=>{
-      ctx.beginPath();ctx.moveTo(CW*px,CH*py);ctx.lineTo(CW*(px+pw/2),CH*(py-ph));ctx.lineTo(CW*(px+pw),CH*py);ctx.closePath();ctx.fill();
-    });
-    // snow caps
-    ctx.fillStyle='rgba(220,240,255,0.7)';
-    [[0,0.72,0.25,0.25],[0.2,0.72,0.35,0.18],[0.5,0.72,0.3,0.22],[0.72,0.72,0.38,0.2],[0.88,0.72,0.25,0.16]].forEach(([px,py,pw,ph])=>{
-      const tip=CH*(py-ph);const mx=CW*(px+pw/2);const cap=ph*0.35;
-      ctx.beginPath();ctx.moveTo(mx,tip);ctx.lineTo(mx+CW*pw*0.18,tip+CH*cap);ctx.lineTo(mx-CW*pw*0.18,tip+CH*cap);ctx.closePath();ctx.fill();
-    });
-  }
+ctx.clearRect(0,0,CW,CH);
+if(state===‘skiing’){drawSlope();drawLifts();drawSkiWorld();drawPlayer();}
+else if(state===‘bottom’||state===‘boarding’){drawBottom();}
+else if(state===‘lift_up’){drawLiftUpScene();}
+else if(state===‘mountaintop’){drawMountaintop();}
+else{drawMenuBg();}
 }
 
-// ── Game over ──────────────────────────────────────────
-function gameOver(){
-  state='gameover';
-  showNameEntry(false);
-}
-
+function gameOver(){state=‘gameover’;showNameEntry(false);}
 function showNameEntry(isWin){
-  const ov=document.getElementById('overlay');
-  ov.style.display='flex';
-  const title=isWin
-    ?`<div class="ov-logo" style="font-size:38px">🏆 YOU<br><span>WIN!</span></div>`
-    :`<div class="ov-logo" style="font-size:44px">WIPED<br><span>OUT!</span></div>`;
-  ov.innerHTML=`
-    ${title}
-    <div class="score-final">SCORE: ${score.toLocaleString()}</div>
-    <div style="color:rgba(255,255,255,0.7);font-family:Nunito,sans-serif;font-size:13px;">Run ${run}/50 completed</div>
-    <div class="ov-card" style="max-width:320px;text-align:center;">
-      <div class="name-prompt">Enter your name (up to 5 letters)</div>
-      <div class="name-boxes">
-        <input class="name-box" id="n0" maxlength="1" type="text">
-        <input class="name-box" id="n1" maxlength="1" type="text">
-        <input class="name-box" id="n2" maxlength="1" type="text">
-        <input class="name-box" id="n3" maxlength="1" type="text">
-        <input class="name-box" id="n4" maxlength="1" type="text">
-      </div>
-      <button class="sub-btn" id="submitScoreBtn">SUBMIT</button>
-      <br><br>
-      <button class="skip-btn" id="skipScoreBtn">skip &amp; play again</button>
-    </div>
-    <div class="ov-card" style="max-width:320px;">
-      <div class="lb-title">🏆 TOP 10 SCORES</div>
-      <div id="lbDisplay"><div class="lb-loading">Loading…</div></div>
-    </div>`;
-
-  // Auto-focus + advance on input
-  const boxes=[0,1,2,3,4].map(i=>document.getElementById('n'+i));
-  boxes.forEach((box,i)=>{
-    box.addEventListener('input',e=>{
-      const v=e.target.value.replace(/[^a-zA-Z]/g,'');
-      box.value=v.toUpperCase();
-      if(v&&i<4)boxes[i+1].focus();
-    });
-    box.addEventListener('keydown',e=>{
-      if(e.key==='Backspace'&&!box.value&&i>0){boxes[i-1].focus();boxes[i-1].value='';}
-    });
-  });
-  boxes[0].focus();
-
-  document.getElementById('submitScoreBtn').addEventListener('click',async()=>{
-    const name=boxes.map(b=>b.value).join('').trim()||'?????';
-    document.getElementById('submitScoreBtn').textContent='Saving…';
-    document.getElementById('submitScoreBtn').disabled=true;
-    await submitScore(name, score, run);
-    const rows=await fetchLeaderboard();
-    document.getElementById('lbDisplay').innerHTML=buildLeaderboardHTML(rows);
-    document.getElementById('submitScoreBtn').style.display='none';
-    document.getElementById('skipScoreBtn').textContent='PLAY AGAIN';
-    document.getElementById('skipScoreBtn').style.color='#f5c211';
-    document.getElementById('skipScoreBtn').style.fontSize='18px';
-  });
-
-  document.getElementById('skipScoreBtn').addEventListener('click',startGame);
-
-  // Load leaderboard in background
-  fetchLeaderboard().then(rows=>{
-    const el=document.getElementById('lbDisplay');
-    if(el)el.innerHTML=buildLeaderboardHTML(rows);
-  });
-}
-
-// ── Helpers ────────────────────────────────────────────
-let comboTO=null;
-function combo(txt){
-  const el=document.getElementById('comboPopup');el.textContent=txt;el.style.opacity='1';
-  clearTimeout(comboTO);comboTO=setTimeout(()=>el.style.opacity='0',1500);
-}
-function updateHUD(){
-  document.getElementById('scoreDisp').textContent=score;
-  document.getElementById('livesDisp').textContent=lives;
-  document.getElementById('runDisp').textContent=run;
-}
-function setModeBar(txt,bg){
-  document.getElementById('modeBar').textContent=txt;
-  document.getElementById('modeBar').style.background=bg;
-}
-
-// ── Start ──────────────────────────────────────────────
-function startGame(){
-  document.getElementById('overlay').style.display='none';
-  resize(); // ensure canvas is correctly sized
-  state='skiing';score=0;lives=3;run=1;
-  document.getElementById('shootBtn').style.display='none';
-  document.getElementById('jumpBtn').style.display='flex';
-  document.getElementById('minimap').style.display='flex';
-  setModeBar('⛷️ RUN 1/50 — SKI DOWN!','#1e90d4');
-  initLevel();updateHUD();updateMinimap();
-}
-document.getElementById('startBtn').addEventListener('click',startGame);
-
-// Load leaderboard on first open
-fetchLeaderboard().then(rows=>{
-  const el=document.getElementById('lbDisplay');
-  if(el)el.innerHTML=buildLeaderboardHTML(rows);
+var ov=document.getElementById(‘overlay’);ov.style.display=‘flex’;
+ov.innerHTML=(isWin?’<div class="ov-logo" style="font-size:38px">YOU<br><span>WIN!</span></div>’:’<div class="ov-logo" style="font-size:44px">WIPED<br><span>OUT!</span></div>’)+
+‘<div class="score-final">SCORE: ‘+score.toLocaleString()+’</div>’+
+‘<div style="color:rgba(255,255,255,0.5);font-family:Nunito,sans-serif;font-size:12px;">Run ‘+Math.min(run,50)+’/50 completed</div>’+
+‘<div class="ov-card" style="max-width:300px;text-align:center;">’+
+‘<div class="name-prompt">Enter your name (5 letters)</div>’+
+‘<div class="name-boxes">’+
+‘<input class="name-box" id="n0" maxlength="1" type="text" autocomplete="off">’+
+‘<input class="name-box" id="n1" maxlength="1" type="text" autocomplete="off">’+
+‘<input class="name-box" id="n2" maxlength="1" type="text" autocomplete="off">’+
+‘<input class="name-box" id="n3" maxlength="1" type="text" autocomplete="off">’+
+‘<input class="name-box" id="n4" maxlength="1" type="text" autocomplete="off">’+
+‘</div>’+
+‘<button class="sub-btn" id="subBtn">SUBMIT</button><br>’+
+‘<button class="skip-btn" id="skipBtn">skip and play again</button>’+
+‘</div>’+
+‘<div class="ov-card" style="max-width:300px;"><div class="lb-title">TOP 10</div><div id="lbD2"><div class="lb-loading">Loading…</div></div></div>’;
+var boxes=[0,1,2,3,4].map(function(i){return document.getElementById(‘n’+i);});
+boxes.forEach(function(b,i){
+b.addEventListener(‘input’,function(e){var v=e.target.value.replace(/[^a-zA-Z]/g,’’);b.value=v.toUpperCase();if(v&&i<4)boxes[i+1].focus();});
+b.addEventListener(‘keydown’,function(e){if(e.key===‘Backspace’&&!b.value&&i>0){boxes[i-1].focus();boxes[i-1].value=’’;}});
 });
+boxes[0].focus();
+document.getElementById(‘subBtn’).addEventListener(‘click’,async function(){
+var name=boxes.map(function(b){return b.value||’?’;}).join(’’);
+document.getElementById(‘subBtn’).textContent=‘Saving…’;document.getElementById(‘subBtn’).disabled=true;
+await submitScore(name,score,run);
+var rows=await fetchLB();var el=document.getElementById(‘lbD2’);if(el)el.innerHTML=buildLBHTML(rows);
+document.getElementById(‘subBtn’).style.display=‘none’;
+var sk=document.getElementById(‘skipBtn’);sk.textContent=‘PLAY AGAIN’;sk.style.color=’#f5c211’;sk.style.fontSize=‘18px’;
+});
+document.getElementById(‘skipBtn’).addEventListener(‘click’,startGame);
+fetchLB().then(function(rows){var el=document.getElementById(‘lbD2’);if(el)el.innerHTML=buildLBHTML(rows);});
+}
+
+var comboTO=null;
+function combo(txt){var el=document.getElementById(‘comboPopup’);el.textContent=txt;el.style.opacity=‘1’;clearTimeout(comboTO);comboTO=setTimeout(function(){el.style.opacity=‘0’;},1500);}
+function updateHUD(){document.getElementById(‘scoreDisp’).textContent=score;document.getElementById(‘livesDisp’).textContent=lives;document.getElementById(‘runDisp’).textContent=Math.min(run,50);}
+function setMB(txt,bg){var mb=document.getElementById(‘modeBar’);mb.textContent=txt;mb.style.background=bg;}
+
+function startGame(){
+document.getElementById(‘overlay’).style.display=‘none’;
+resize();
+state=‘skiing’;score=0;lives=3;run=1;
+document.getElementById(‘shootBtn’).style.display=‘none’;
+document.getElementById(‘jumpBtn’).style.display=‘flex’;
+document.getElementById(‘minimap’).style.display=‘flex’;
+setMB(‘RUN 1/50 - SKI DOWN!’,’#1e90d4’);
+initLevel();updateHUD();updateMM();
+}
+document.getElementById(‘startBtn’).addEventListener(‘click’,startGame);
 
 function loop(){
-  if(state==='skiing')updateSkiing();
-  else if(state==='bottom')updateBottom();
-  else if(state==='lift_up')updateLiftUp();
-  else if(state==='mountaintop')updateMountaintop();
-  draw();requestAnimationFrame(loop);
+if(state===‘skiing’)updateSkiing();
+else if(state===‘bottom’)updateBottom();
+else if(state===‘lift_up’)updateLiftUp();
+else if(state===‘mountaintop’)updateMountaintop();
+draw();
+requestAnimationFrame(loop);
 }
 loop();
 </script>
