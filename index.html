@@ -101,27 +101,27 @@ canvas{display:block;touch-action:none;}
   <button class="big-btn" id="startBtn">PLAY!</button>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-// ── Supabase leaderboard ───────────────────────────────
+// ── Supabase leaderboard via raw fetch (no CDN dependency) ─
 const SUPA_URL='https://lyvuwdsllthsbqsgcopa.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5dnV3ZHNsbHRoc2Jxc2djb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjI0NTAsImV4cCI6MjA4ODQ5ODQ1MH0.BxRD1t3Ovnbohy-HGQ03WkhEuduvvmLTD9PTVwUrfAY';
-let supa=null;
-try{ supa=supabase.createClient(SUPA_URL,SUPA_KEY); }catch(e){ console.warn('Supabase unavailable',e); }
+const SUPA_HEADERS={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
 
 async function fetchLeaderboard(){
 try{
-if(!supa)return [];
-const {data,error}=await supa.from(‘leaderboard’).select(‘name,score,run’).order(‘score’,{ascending:false}).limit(10);
-if(error)return [];
-return data||[];
+const r=await fetch(SUPA_URL+’/rest/v1/leaderboard?select=name,score,run&order=score.desc&limit=10’,{headers:SUPA_HEADERS});
+if(!r.ok)return [];
+return await r.json();
 }catch(e){return [];}
 }
 
 async function submitScore(playerName,playerScore,playerRun){
 try{
-if(!supa)return;
-await supa.from(‘leaderboard’).insert([{name:playerName.toUpperCase().slice(0,5),score:playerScore,run:playerRun}]);
+await fetch(SUPA_URL+’/rest/v1/leaderboard’,{
+method:‘POST’,
+headers:{…SUPA_HEADERS,‘Prefer’:‘return=minimal’},
+body:JSON.stringify({name:playerName.toUpperCase().slice(0,5),score:playerScore,run:playerRun})
+});
 }catch(e){console.warn(‘Score submit failed’,e);}
 }
 
