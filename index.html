@@ -966,14 +966,29 @@ function drawMountaintop(){
 // ── Main draw ──────────────────────────────────────────
 function draw(){
   ctx.clearRect(0,0,CW,CH);
-  // Always draw a background so canvas is never blank
-  const sky=ctx.createLinearGradient(0,0,0,CH);
-  sky.addColorStop(0,'#3a7fbe');sky.addColorStop(1,'#9ad0f0');
-  ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH);
   if(state==='skiing'){drawSlope();drawLifts();drawSkiWorld();drawPlayer();}
   else if(state==='bottom'||state==='boarding'){drawBottom();}
   else if(state==='lift_up'){drawLiftUpScene();}
   else if(state==='mountaintop'){drawMountaintop();}
+  else{
+    // menu / gameover — draw a snowy mountain background behind the overlay
+    const sky=ctx.createLinearGradient(0,0,0,CH);
+    sky.addColorStop(0,'#0d1b3e');sky.addColorStop(0.6,'#1a4a7a');sky.addColorStop(1,'#2a7fbf');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,CW,CH);
+    // snow ground
+    ctx.fillStyle='#d8eef8';ctx.fillRect(0,CH*0.72,CW,CH);
+    // mountains
+    ctx.fillStyle='#1a3a5c';
+    [[0,0.72,0.25,0.25],[0.2,0.72,0.35,0.18],[0.5,0.72,0.3,0.22],[0.72,0.72,0.38,0.2],[0.88,0.72,0.25,0.16]].forEach(([px,py,pw,ph])=>{
+      ctx.beginPath();ctx.moveTo(CW*px,CH*py);ctx.lineTo(CW*(px+pw/2),CH*(py-ph));ctx.lineTo(CW*(px+pw),CH*py);ctx.closePath();ctx.fill();
+    });
+    // snow caps
+    ctx.fillStyle='rgba(220,240,255,0.7)';
+    [[0,0.72,0.25,0.25],[0.2,0.72,0.35,0.18],[0.5,0.72,0.3,0.22],[0.72,0.72,0.38,0.2],[0.88,0.72,0.25,0.16]].forEach(([px,py,pw,ph])=>{
+      const tip=CH*(py-ph);const mx=CW*(px+pw/2);const cap=ph*0.35;
+      ctx.beginPath();ctx.moveTo(mx,tip);ctx.lineTo(mx+CW*pw*0.18,tip+CH*cap);ctx.lineTo(mx-CW*pw*0.18,tip+CH*cap);ctx.closePath();ctx.fill();
+    });
+  }
 }
 
 // ── Game over ──────────────────────────────────────────
