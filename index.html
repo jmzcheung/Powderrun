@@ -86,6 +86,7 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%;touch
 </div>
 <div id="overlay">
   <div class="ov-logo">POWDER<br><span>RUN</span></div>
+  <div style="font-family:'Nunito',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);margin-top:-8px;letter-spacing:1px;">v1.4</div>
   <div class="ov-card">
     <div class="ov-row"><span class="ov-icon">🕹️</span>Joystick — steer left/right, push down to go faster, up to brake</div>
     <div class="ov-row"><span class="ov-icon">🆙</span>JUMP over small trees. Ramp launch clears medium trees!</div>
@@ -144,16 +145,12 @@ let CW,CH;
 function resize(){
   CW=canvas.width=window.innerWidth;
   CH=canvas.height=window.innerHeight;
-  // Re-init camera if already playing
-  if(typeof cam!=='undefined'&&typeof P!=='undefined'){
-    cam.x=P.wx-CW/2;cam.y=P.wy-PLAYER_SCREEN_Y();
-  }
 }
 resize();
 window.addEventListener('resize',resize);
 // Extra resize calls for mobile Safari which delays reporting correct height
-setTimeout(resize,100);
-setTimeout(resize,500);
+setTimeout(()=>{resize();},100);
+setTimeout(()=>{resize();},500);
 
 // ── Roblox draw helpers ────────────────────────────────
 function shiftCol(hex,n){
