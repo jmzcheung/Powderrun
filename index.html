@@ -26,7 +26,7 @@ canvas{display:block;touch-action:none;}
 .mm-label{font-family:‘Fredoka One’,sans-serif;font-size:9px;color:rgba(255,255,255,0.75);text-align:center;line-height:1.2;}
 
 /* Controls */
-#controls{position:absolute;bottom:0;left:0;right:0;height:150px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 18px 14px;pointer-events:none;z-index:15;}
+#controls{position:absolute;bottom:80px;left:0;right:0;height:150px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 18px 14px;pointer-events:none;z-index:15;}
 #joystickArea{position:relative;width:110px;height:110px;pointer-events:all;}
 #joystickBase{position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,0.1);border:3px solid rgba(255,255,255,0.22);}
 #joystickThumb{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.82);border:3px solid rgba(255,255,255,0.5);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 4px 12px rgba(0,0,0,0.3);}
@@ -81,6 +81,15 @@ canvas{display:block;touch-action:none;}
 <div id="hud">
   <div class="hud-pill">🏆 <span class="val" id="scoreDisp">0</span></div>
   <div class="hud-pill" id="timerPill">⏱️ <span class="val" id="timerDisp">0.0</span>s</div>
+  <div class="hud-pill" id="speedoPill" style="display:none;flex-direction:column;align-items:center;padding:5px 10px;gap:2px;">
+    <div style="font-size:10px;letter-spacing:1px;opacity:0.7;">SPEED</div>
+    <div style="display:flex;align-items:center;gap:4px;">
+      <div id="speedBar" style="width:52px;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden;">
+        <div id="speedFill" style="height:100%;width:0%;border-radius:4px;background:#3bb34a;transition:width 0.1s,background 0.2s;"></div>
+      </div>
+    </div>
+    <div id="speedLabel" style="font-size:11px;color:#3bb34a;letter-spacing:1px;font-family:'Fredoka One',sans-serif;">—</div>
+  </div>
   <div class="hud-pill">❤️ <span class="val" id="livesDisp">3</span></div>
 </div>
 <div id="modeBar">⛷️ RUN 1/50 — SKI DOWN!</div>
@@ -245,29 +254,35 @@ function drawBall(x, y, r, col) {
 }
 
 function drawRock(x, y, sz) {
-  // 3 shades for the blocky isometric look
-  const base = '#7a7a7a', light = '#a0a0a0', dark = '#4a4a4a';
-  const d = Math.max(2, sz*0.18);
-  // front face
-  ctx.fillStyle = base;
-  ctx.beginPath();
-  ctx.ellipse(x, y, sz, sz*0.55, 0, 0, Math.PI*2);
-  ctx.fill();
-  // top highlight
-  ctx.fillStyle = light;
-  ctx.beginPath();
-  ctx.ellipse(x-sz*0.15, y-sz*0.2, sz*0.55, sz*0.28, -0.3, 0, Math.PI*2);
-  ctx.fill();
-  // shadow bottom
-  ctx.fillStyle = dark;
-  ctx.beginPath();
-  ctx.ellipse(x+sz*0.1, y+sz*0.18, sz*0.45, sz*0.22, 0.2, 0, Math.PI*2);
-  ctx.fill();
-  // snow dusting
-  ctx.fillStyle = 'rgba(228,246,255,0.6)';
-  ctx.beginPath();
-  ctx.ellipse(x-sz*0.2, y-sz*0.28, sz*0.28, sz*0.12, -0.4, 0, Math.PI*2);
-  ctx.fill();
+  const r = sz;
+  // Drop shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.18)';
+  ctx.beginPath(); ctx.ellipse(x+r*0.15, y+r*0.85, r*0.9, r*0.28, 0, 0, Math.PI*2); ctx.fill();
+  // Base boulder — dark grey
+  ctx.fillStyle = '#4a4a4a';
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  // Main face — mid grey
+  ctx.fillStyle = '#6e6e6e';
+  ctx.beginPath(); ctx.ellipse(x-r*0.05, y+r*0.05, r*0.88, r*0.88, 0, 0, Math.PI*2); ctx.fill();
+  // Radial gradient for roundness
+  const grad = ctx.createRadialGradient(x-r*0.3, y-r*0.32, r*0.05, x, y, r*1.0);
+  grad.addColorStop(0, 'rgba(160,160,160,0.9)');
+  grad.addColorStop(0.45, 'rgba(100,100,100,0.4)');
+  grad.addColorStop(1, 'rgba(30,30,30,0.7)');
+  ctx.fillStyle = grad;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  // Cracks / texture lines
+  ctx.strokeStyle = 'rgba(30,30,30,0.35)'; ctx.lineWidth = Math.max(1, r*0.1);
+  ctx.beginPath(); ctx.moveTo(x-r*0.2, y-r*0.1); ctx.quadraticCurveTo(x, y+r*0.15, x+r*0.3, y+r*0.05); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x+r*0.1, y-r*0.35); ctx.quadraticCurveTo(x+r*0.25, y-r*0.05, x+r*0.15, y+r*0.2); ctx.stroke();
+  // Snow dusting on top
+  ctx.fillStyle = 'rgba(225,242,255,0.82)';
+  ctx.beginPath(); ctx.ellipse(x-r*0.12, y-r*0.52, r*0.52, r*0.24, -0.25, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath(); ctx.ellipse(x-r*0.15, y-r*0.55, r*0.28, r*0.12, -0.2, 0, Math.PI*2); ctx.fill();
+  // Outline
+  ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.stroke();
 }
 
 function drawRamp(x, y, w, h) {
@@ -300,17 +315,32 @@ const PLAYER_SCREEN_Y = () => CH * 0.42;
 let state = 'menu', score = 0, lives = 3, run = 1;
 let hillSeed = 0;
 let runStartTime = 0; // ms timestamp when skiing started
+let liftHitCount = 0; // snowball hits this lift ride
 
 // ─── SCORING CONSTANTS ───────────────────────────────────────────────────────
-const PTS_JUMP_TRICK_BASE = 25;       // plain jump (no trick) = 0 pts
+const PTS_JUMP_TRICK_BASE = 25;       // plain jump trick base
 const PTS_TRICK_RAMP_MULT = 4;        // tricks off ramp worth 4× base
 const PTS_RAMP_HIT = 300;             // hitting a ramp
 const PTS_SNOWBALL_HIT = 250;         // shooting enemy on lift
-const PTS_RUN_COMPLETE = 500;         // finishing a run
-const PTS_SPEED_32 = 800;             // sub-32 s bonus
-const PTS_SPEED_31 = 1200;
-const PTS_SPEED_30 = 1800;
-const PTS_SPEED_29 = 2500;
+const PTS_RUN_COMPLETE = 500;         // base for finishing a run
+
+// Speed bonuses by finish time bracket
+// Under 30s=4000, 30-40s=2500, 40-50s=1200, 50-60s=400, 60s+=0
+function getSpeedBonus(secs) {
+  if (secs < 30)  return { pts:4000, msg:`⚡ INSANE <30s! +4000` };
+  if (secs < 40)  return { pts:2500, msg:`🔥 BLAZING <40s! +2500` };
+  if (secs < 50)  return { pts:1200, msg:`🚀 FAST <50s! +1200` };
+  if (secs < 60)  return { pts:400,  msg:`💨 DECENT <60s! +400` };
+  return { pts:0, msg:'' };
+}
+
+// Lift hit milestone bonuses (awarded at end of lift ride)
+function getLiftHitBonus(hits) {
+  if (hits >= 30) return { pts:3000, msg:`🎯 SHARPSHOOTER! ${hits} hits! +3000` };
+  if (hits >= 20) return { pts:1500, msg:`🎯 MARKSMAN! ${hits} hits! +1500` };
+  if (hits >= 10) return { pts:600,  msg:`🎯 GOOD AIM! ${hits} hits! +600` };
+  return { pts:0, msg:'' };
+}
 
 function seededRand(seed) { let x = Math.sin(seed)*10000; return x - Math.floor(x); }
 
@@ -391,9 +421,10 @@ function buildHill() {
 // Early runs mostly small, later runs mix in bigger ones
 function pickRockSize(rs, density) {
   const roll = seededRand(rs[0]++);
-  if (density < 0.3) return roll < 0.80 ? 0 : 1; // mostly small
-  if (density < 0.65) return roll < 0.50 ? 0 : roll < 0.85 ? 1 : 2; // mixed
-  return roll < 0.30 ? 0 : roll < 0.65 ? 1 : 2; // many large
+  // Returns actual radius in px: small=14, medium=22, large=32
+  if (density < 0.3) return roll < 0.80 ? 14 : 22;       // mostly small
+  if (density < 0.65) return roll < 0.50 ? 14 : roll < 0.85 ? 22 : 32; // mixed
+  return roll < 0.30 ? 14 : roll < 0.65 ? 22 : 32;        // many large
 }
 
 function loadChunkIntoArrays() {
@@ -443,7 +474,7 @@ function initLevel() {
   buildHill();
   trees.length=0; ramps.length=0; rocks.length=0; snowballs.length=0; particles.length=0; playerBalls.length=0; liftNpcs.length=0;
   P.wx=WORLD_W/2; P.wy=0; P.vx=0; P.vy=2.5; P.jz=0; P.vjz=0; P.onGround=true; P.invincible=60;
-  P.trickAngle=0; P.trickSpin=0; P.trickCount=0; P.inAir=false; P._lastChunk=-99;
+  P.trickAngle=0; P.trickSpin=0; P.trickCount=0; P.inAir=false; P.fromRamp=false; P.tuckFrames=0; P.turboTier=0; P._lastChunk=-99;
   cam.x = P.wx - CW/2; cam.y = P.wy - PLAYER_SCREEN_Y();
   runStartTime = performance.now();
   loadChunkIntoArrays();
@@ -536,10 +567,30 @@ function updateSkiing() {
   if (keys['ArrowDown']||keys['s']) my=1;
   if (keys['ArrowUp']||keys['w']) my=-1;
 
-  const baseVY = 2.8 + Math.min(4, P.wy/3000);
+  // ── TURBO SYSTEM ─────────────────────────────────────────────────────────
+  // Holding down for 3s → FAST, 5s → FASTER, 8s → FASTEST
+  // Hitting anything resets turbo streak
+  const TURBO_1 = 180, TURBO_2 = 300, TURBO_3 = 480; // frames at 60fps
+  if (my > 0.4) {
+    P.tuckFrames = (P.tuckFrames||0) + 1;
+  } else {
+    P.tuckFrames = Math.max(0, (P.tuckFrames||0) - 2); // bleeds off when you let go
+  }
+  const tuck = P.tuckFrames||0;
+  let turboMult = 1.0;
+  if (tuck >= TURBO_3)      turboMult = 1.55;  // FASTEST — sub-27s territory
+  else if (tuck >= TURBO_2) turboMult = 1.32;  // FASTER
+  else if (tuck >= TURBO_1) turboMult = 1.15;  // FAST
+
+  // Show turbo state in speedometer (read in draw)
+  P.turboTier = tuck >= TURBO_3 ? 3 : tuck >= TURBO_2 ? 2 : tuck >= TURBO_1 ? 1 : 0;
+
+  // Natural gravity speed builds as you descend (4.5 → 9.0)
+  const baseVY = 4.5 + Math.min(4.5, P.wy/2600);
   P.vx += mx*0.9; P.vx *= 0.80;
-  P.vy += (baseVY + my*3.5 - P.vy)*0.07;
-  P.vy = Math.max(0.2, Math.min(13, P.vy));
+  const targetVY = (baseVY + my*5.0) * turboMult;
+  P.vy += (targetVY - P.vy)*0.09;
+  P.vy = Math.max(0.3, Math.min(26, P.vy)); // 26 max → ~24s at pure FASTEST tuck
 
   if (!P.onGround) {
     P.jz += P.vjz; P.vjz -= 0.7;
@@ -579,20 +630,21 @@ function updateSkiing() {
       if (Math.hypot(s.wx-P.wx, s.wy-P.wy) < s.r+12) {
         snowballs.splice(i,1); lives--; P.invincible=110; updateHUD(); combo('OUCH! ❄️');
         spawnParticles(P.wx, P.wy, '#b0d8ff', 8, 'world');
+        P.tuckFrames=0; // reset turbo on hit
         if (lives<=0) { gameOver(); return; }
       }
     }
   }
   if (P.invincible>0) P.invincible--;
 
-  // Tree collisions
+  // Tree collisions — fixed hitboxes (minimum 14px so small trees are always solid)
   for (const t of trees) {
     if (t.hit) continue;
     const tier = t.tier ?? 0;
     const clearable = tier===0 ? P.jz>2 : tier===1 ? P.jz>18 : false;
     if (clearable) continue;
-    const hitW = t.sz*(tier===2?0.32:0.26);
-    const hitH = t.sz*(tier===2?0.38:0.30);
+    const hitW = Math.max(14, t.sz*(tier===2?0.34:0.30));
+    const hitH = Math.max(14, t.sz*(tier===2?0.40:0.34));
     if (Math.abs(P.wx-t.wx)<hitW && Math.abs(P.wy-t.wy)<hitH) {
       t.hit=true;
       if (P.invincible<=0) {
@@ -601,6 +653,7 @@ function updateSkiing() {
         combo(msgs[tier]);
         spawnParticles(P.wx, P.wy, '#4cb86b', 10, 'world');
         P.vx*=-1.5; P.vy=Math.max(0.5, P.vy*0.3);
+        P.tuckFrames=0; // reset turbo on hit
         if (lives<=0) { gameOver(); return; }
       }
     }
@@ -631,9 +684,10 @@ function updateSkiing() {
       if (P.invincible<=0) {
         lives--; P.invincible=120; updateHUD();
         const msgs=['ROCK! 🪨','HIT ROCK! 🪨','WIPEOUT! 🪨'];
-        combo(msgs[Math.min(2,r.sz>18?2:r.sz>12?1:0)]);
+        combo(msgs[r.sz>=32?2:r.sz>=22?1:0]);
         spawnParticles(P.wx, P.wy, '#aaaaaa', 12, 'world');
         P.vx*=-2; P.vy=Math.max(0.5, P.vy*0.25);
+        P.tuckFrames=0;
         if (lives<=0) { gameOver(); return; }
       }
     }
@@ -646,13 +700,8 @@ function updateSkiing() {
   }
 
   if (P.wy >= HILL_LEN) {
-    // Calculate run time and award speed bonus
     const runSecs = (performance.now() - runStartTime) / 1000;
-    let timeBonus = 0, timeMsg = '';
-    if (runSecs < 29) { timeBonus = PTS_SPEED_29; timeMsg = `⚡ BLAZING <29s! +${PTS_SPEED_29}`; }
-    else if (runSecs < 30) { timeBonus = PTS_SPEED_30; timeMsg = `🔥 FAST <30s! +${PTS_SPEED_30}`; }
-    else if (runSecs < 31) { timeBonus = PTS_SPEED_31; timeMsg = `🚀 QUICK <31s! +${PTS_SPEED_31}`; }
-    else if (runSecs < 32) { timeBonus = PTS_SPEED_32; timeMsg = `💨 SPEEDY <32s! +${PTS_SPEED_32}`; }
+    const { pts: timeBonus, msg: timeMsg } = getSpeedBonus(runSecs);
     score += PTS_RUN_COMPLETE + timeBonus;
     updateHUD();
     if (timeMsg) combo(timeMsg);
@@ -708,6 +757,7 @@ function updateBottom() {
 // ─── UPDATE: LIFT UP ──────────────────────────────────────────────────────────
 function enterLiftUp() {
   state='lift_up'; liftScrollY=0; liftNpcs.length=0; playerBalls.length=0; particles.length=0; shootReload=0;
+  liftHitCount=0;
   setModeBar(`🚠 RUN ${run} — RIDE UP & SHOOT!`, '#e03e3e');
   document.getElementById('shootBtn').style.display='flex';
   document.getElementById('jumpBtn').style.display='none';
@@ -722,7 +772,7 @@ function spawnLiftNpc(yOff) {
 }
 
 function updateLiftUp() {
-  liftScrollY += 5.0;
+  liftScrollY += 11;
   if (shootReload>0) shootReload--;
   const aimSpd=7;
   let ax=joyX, ay=joyY;
@@ -753,7 +803,13 @@ function updateLiftUp() {
     for (let j=liftNpcs.length-1; j>=0; j--) {
       const n=liftNpcs[j];
       if (s.x>n.x-4&&s.x<n.x+32&&s.y>n.y-4&&s.y<n.y+44) {
-        score+=PTS_SNOWBALL_HIT; updateHUD(); combo(`+${PTS_SNOWBALL_HIT} 💥 NICE SHOT!`);
+        liftHitCount++;
+        score+=PTS_SNOWBALL_HIT; updateHUD();
+        // Show milestone combos at 10/20/30
+        if (liftHitCount===30)      combo(`🎯 30 HITS!! +${PTS_SNOWBALL_HIT}`);
+        else if (liftHitCount===20) combo(`🎯 20 HITS! +${PTS_SNOWBALL_HIT}`);
+        else if (liftHitCount===10) combo(`🎯 10 HITS! +${PTS_SNOWBALL_HIT}`);
+        else                        combo(`+${PTS_SNOWBALL_HIT} 💥 HIT! [${liftHitCount}]`);
         spawnParticles(n.x+14, n.y+14, '#ffffff', 8, 'screen');
         liftNpcs.splice(j,1); hit=true; break;
       }
@@ -767,7 +823,15 @@ function updateLiftUp() {
   }
 
   updateMinimapLift();
-  if (liftScrollY >= HILL_LEN) enterMountaintop();
+  if (liftScrollY >= HILL_LEN) {
+    // Award lift hit milestone bonus
+    const hitBonus = getLiftHitBonus(liftHitCount);
+    if (hitBonus.pts > 0) {
+      score += hitBonus.pts; updateHUD();
+      setTimeout(() => combo(hitBonus.msg), 400);
+    }
+    enterMountaintop();
+  }
 }
 
 // ─── UPDATE: MOUNTAINTOP ──────────────────────────────────────────────────────
@@ -809,7 +873,7 @@ function dropIn() {
   document.getElementById('shootBtn').style.display='none';
   document.getElementById('minimap').style.display='flex';
   P.wx=WORLD_W/2; P.wy=0; P.vx=0; P.vy=2.5; P.jz=0; P.vjz=0;
-  P.onGround=true; P.invincible=80; P.trickAngle=0; P.trickSpin=0; P.trickCount=0; P.inAir=false; P.fromRamp=false; P._lastChunk=-99;
+  P.onGround=true; P.invincible=80; P.trickAngle=0; P.trickSpin=0; P.trickCount=0; P.inAir=false; P.fromRamp=false; P.tuckFrames=0; P.turboTier=0; P._lastChunk=-99;
   cam.x=P.wx-CW/2; cam.y=P.wy-PLAYER_SCREEN_Y();
   snowballs.length=0; particles.length=0; playerBalls.length=0; rocks.length=0;
   hillSeed=Math.floor(Math.random()*9999);
@@ -841,10 +905,6 @@ function drawSlope() {
   const sn = ctx.createLinearGradient(0,CH*0.12,0,CH);
   sn.addColorStop(0,'#e2f4fc'); sn.addColorStop(0.5,'#eef8ff'); sn.addColorStop(1,'#cce6f4');
   ctx.fillStyle=sn; ctx.fillRect(0,CH*0.12,CW,CH);
-  ctx.strokeStyle='rgba(170,215,240,0.38)'; ctx.lineWidth=2;
-  for (const off of [-8,8]) {
-    ctx.beginPath(); ctx.moveTo(CW/2+off,0); ctx.lineTo(CW/2+off,CH); ctx.stroke();
-  }
 }
 
 function drawLifts() {
@@ -958,8 +1018,6 @@ function drawLiftUpScene() {
   const sn=ctx.createLinearGradient(0,CH*0.12,0,CH);
   sn.addColorStop(0,'#e2f4fc'); sn.addColorStop(0.5,'#eef8ff'); sn.addColorStop(1,'#cce6f4');
   ctx.fillStyle=sn; ctx.fillRect(0,CH*0.12,CW,CH);
-  ctx.strokeStyle='rgba(170,215,240,0.38)'; ctx.lineWidth=2;
-  for (const off of [-8,8]) { ctx.beginPath(); ctx.moveTo(CW/2+off,0); ctx.lineTo(CW/2+off,CH); ctx.stroke(); }
 
   const viewWY = HILL_LEN - liftScrollY;
   const liftCam = { x:liftSide==='left'?LEFT_LIFT_WX-CW/2:RIGHT_LIFT_WX-CW/2, y:viewWY-CH*0.42 };
@@ -1017,6 +1075,17 @@ function drawLiftUpScene() {
   block(CW/2-bw/2,CH-28,bw*prog,14,'#1e90d4');
   ctx.fillStyle='rgba(255,255,255,0.65)'; ctx.font='11px Fredoka One,sans-serif'; ctx.textAlign='center';
   ctx.fillText('RIDING UP TO TOP',CW/2,CH-16); ctx.textAlign='left';
+
+  // Hit counter — centered below HUD, clear of hearts
+  const hitColor = liftHitCount>=30?'#e03e3e':liftHitCount>=20?'#f5c211':liftHitCount>=10?'#3bb34a':'rgba(255,255,255,0.8)';
+  const hcW=110, hcH=48, hcX=CW/2-hcW/2, hcY=14;
+  ctx.fillStyle='rgba(20,20,40,0.85)';
+  ctx.beginPath(); ctx.roundRect(hcX,hcY,hcW,hcH,10); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='11px Fredoka One,sans-serif'; ctx.textAlign='center';
+  ctx.fillText('🎯 HITS',CW/2,hcY+17);
+  ctx.fillStyle=hitColor; ctx.font='bold 22px Fredoka One,sans-serif';
+  ctx.fillText(liftHitCount,CW/2,hcY+40);
+  ctx.textAlign='left';
 }
 
 // ─── DRAW: MOUNTAINTOP ────────────────────────────────────────────────────────
@@ -1145,12 +1214,26 @@ function updateHUD() {
 function updateTimer() {
   const el = document.getElementById('timerDisp');
   const pill = document.getElementById('timerPill');
+  const speedoPill = document.getElementById('speedoPill');
   if (state === 'skiing') {
     const s = ((performance.now() - runStartTime)/1000).toFixed(1);
     if (el) el.textContent = s;
     if (pill) pill.style.display='flex';
+    // Speedometer
+    if (speedoPill) {
+      speedoPill.style.display='flex';
+      const tier = P.turboTier || 0;
+      const pct = Math.min(100, (P.vy / 26) * 100);
+      const fill = document.getElementById('speedFill');
+      const label = document.getElementById('speedLabel');
+      const colors = ['#3bb34a','#f5c211','#ff8c00','#e03e3e'];
+      const labels = ['—','FAST','FASTER','FASTEST'];
+      if (fill) { fill.style.width = pct+'%'; fill.style.background = colors[tier]; }
+      if (label) { label.textContent = labels[tier]; label.style.color = colors[tier]; }
+    }
   } else {
     if (pill) pill.style.display='none';
+    if (speedoPill) speedoPill.style.display='none';
   }
 }
 function setModeBar(txt, bg) {
