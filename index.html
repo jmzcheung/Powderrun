@@ -80,11 +80,10 @@ canvas{display:block;touch-action:none;}
 
 <div id="hud">
   <div class="hud-pill">🏆 <span class="val" id="scoreDisp">0</span></div>
-  <div class="hud-pill">⏱️ <span class="val" id="timerDisp">0.0</span>s</div>
-  <div class="hud-pill">🎿 RUN <span class="val" id="runDisp">1</span>/50</div>
+  <div class="hud-pill" id="timerPill">⏱️ <span class="val" id="timerDisp">0.0</span>s</div>
   <div class="hud-pill">❤️ <span class="val" id="livesDisp">3</span></div>
 </div>
-<div id="modeBar">⛷️ SKI DOWN THE MOUNTAIN</div>
+<div id="modeBar">⛷️ RUN 1/50 — SKI DOWN!</div>
 <div id="comboPopup"></div>
 
 <!-- Minimap -->
@@ -109,21 +108,18 @@ canvas{display:block;touch-action:none;}
 
 <div id="overlay">
   <div class="ov-logo">POWDER<br><span>RUN</span></div>
+  <button class="big-btn" id="startBtn">PLAY!</button>
   <div class="ov-card">
     <div class="ov-row"><span class="ov-icon">🕹️</span>Joystick — steer left/right, push down to go faster, up to brake</div>
-    <div class="ov-row"><span class="ov-icon">🆙</span>JUMP over small trees. Ramp launch clears medium trees!</div>
-    <div class="ov-row"><span class="ov-icon">🌲</span>Small 🟢 Medium 🟤 Tall 🌲 — big dark trees can never be jumped!</div>
-    <div class="ov-row"><span class="ov-icon">🪨</span>Run 2+ rocks appear — hit one and lose a life!</div>
-    <div class="ov-row"><span class="ov-icon">🌀</span>Tap JUMP mid-air off a RAMP for big trick bonuses!</div>
+    <div class="ov-row"><span class="ov-icon">🌀</span>Hit a RAMP then tap JUMP mid-air for big trick bonuses!</div>
     <div class="ov-row"><span class="ov-icon">⏱️</span>Finish a run under 32s for a SPEED BONUS!</div>
-    <div class="ov-row"><span class="ov-icon">🚠</span>Reach bottom → ski to a lift → ride up!</div>
-    <div class="ov-row"><span class="ov-icon">❄️</span>On lift → use joystick to AIM, tap THROW to shoot!</div>
+    <div class="ov-row"><span class="ov-icon">🚠</span>Reach the bottom → ski to a lift → ride up!</div>
+    <div class="ov-row"><span class="ov-icon">❄️</span>On the lift → AIM with joystick, tap THROW to shoot!</div>
   </div>
   <div class="ov-card" style="max-width:320px;">
     <div class="lb-title">🏆 TOP 10 SCORES</div>
     <div id="lbDisplay"><div class="lb-loading">Loading…</div></div>
   </div>
-  <button class="big-btn" id="startBtn">PLAY!</button>
 </div>
 </div>
 
@@ -273,6 +269,8 @@ function drawRock(x, y, sz) {
   ctx.ellipse(x-sz*0.2, y-sz*0.28, sz*0.28, sz*0.12, -0.4, 0, Math.PI*2);
   ctx.fill();
 }
+
+function drawRamp(x, y, w, h) {
   ctx.fillStyle = '#c8e8f8';
   ctx.beginPath(); ctx.moveTo(x,y+h); ctx.lineTo(x+w,y); ctx.lineTo(x+w,y+h); ctx.closePath(); ctx.fill();
   ctx.fillStyle = '#eaf6ff';
@@ -1143,11 +1141,10 @@ function combo(txt) {
 function updateHUD() {
   document.getElementById('scoreDisp').textContent = score.toLocaleString();
   document.getElementById('livesDisp').textContent = lives;
-  document.getElementById('runDisp').textContent = run;
 }
 function updateTimer() {
   const el = document.getElementById('timerDisp');
-  const pill = el ? el.closest('.hud-pill') : null;
+  const pill = document.getElementById('timerPill');
   if (state === 'skiing') {
     const s = ((performance.now() - runStartTime)/1000).toFixed(1);
     if (el) el.textContent = s;
@@ -1157,8 +1154,9 @@ function updateTimer() {
   }
 }
 function setModeBar(txt, bg) {
-  document.getElementById('modeBar').textContent = txt;
-  document.getElementById('modeBar').style.background = bg;
+  const bar = document.getElementById('modeBar');
+  bar.innerHTML = txt;
+  bar.style.background = bg;
 }
 
 // ─── START GAME ───────────────────────────────────────────────────────────────
